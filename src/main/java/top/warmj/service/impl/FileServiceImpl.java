@@ -24,4 +24,9 @@ public class FileServiceImpl implements FileService {
     public int postFile(File file) {
         return fileDao.postFile(file);
     }
+
+    @Override
+    public int deleteFile(int id) {
+        return fileDao.deleteFile(id);
+    }
 }

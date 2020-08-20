@@ -31,4 +31,12 @@
         INSERT INTO file (file_box_id, number_order, path, type, add_time, last_time)
         VALUES ( #{fileBoxId}, #{numberOrder}, #{path}, #{type}, NOW(), NOW());
     </insert>
+
+    <delete id="deleteFile" parameterType="int">
+        DELETE
+        FROM
+            file
+        WHERE
+            id = #{id}
+    </delete>
 </mapper>

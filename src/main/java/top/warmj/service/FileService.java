@@ -9,4 +9,6 @@ public interface FileService {
     List<File> getFile(int fileBoxId);
 
     int postFile(File file);
+
+    int deleteFile(int id);
 }

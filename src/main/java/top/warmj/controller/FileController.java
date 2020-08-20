@@ -30,4 +30,14 @@ public class FileController {
             return "success";
         }
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public String deleteFile(@PathVariable int id) {
+        if (fileService.deleteFile(id) == 0) {
+            return "fail";
+        } else {
+            return "success";
+        }
+    }
 }
