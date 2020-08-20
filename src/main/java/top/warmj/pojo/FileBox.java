@@ -1,14 +1,21 @@
 package top.warmj.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class FileBox {
 
   private long id;
   private String title;
   private String desc;
   private long count;
-  private java.sql.Timestamp addTime;
-  private java.sql.Timestamp lastTime;
+
+  @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+  private Date addTime;
+  @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+  private Date lastTime;
 
 
   public long getId() {
@@ -47,20 +54,20 @@ public class FileBox {
   }
 
 
-  public java.sql.Timestamp getAddTime() {
+  public Date getAddTime() {
     return addTime;
   }
 
-  public void setAddTime(java.sql.Timestamp addTime) {
+  public void setAddTime(Date addTime) {
     this.addTime = addTime;
   }
 
 
-  public java.sql.Timestamp getLastTime() {
+  public Date getLastTime() {
     return lastTime;
   }
 
-  public void setLastTime(java.sql.Timestamp lastTime) {
+  public void setLastTime(Date lastTime) {
     this.lastTime = lastTime;
   }
 

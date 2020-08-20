@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.warmj.dao.FileBoxDao">
+
+    <resultMap type="FileBox" id="FileBoxResultMap">
+        <result column="add_time" property="addTime"/>
+        <result column="last_time" property="lastTime"/>
+    </resultMap>
+
+    <select id="getFileBox" parameterType="int" resultMap="FileBoxResultMap">
+        SELECT
+            *
+        FROM
+            file_box
+        WHERE
+            id = #{id}
+    </select>
+
+</mapper>
