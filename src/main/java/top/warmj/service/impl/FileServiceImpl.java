@@ -6,6 +6,7 @@ import top.warmj.dao.FileDao;
 import top.warmj.pojo.File;
 import top.warmj.service.FileService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,5 +18,10 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<File> getFile(int fileBoxId) {
         return fileDao.getFile(fileBoxId);
+    }
+
+    @Override
+    public int postFile(File file) {
+        return fileDao.postFile(file);
     }
 }
