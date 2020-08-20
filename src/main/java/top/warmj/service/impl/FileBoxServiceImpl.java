@@ -23,6 +23,6 @@ public class FileBoxServiceImpl implements FileBoxService {
 
     @Override
     public int deleteFileBox(int id) {
-        return 0;
+        return fileBoxDao.deleteFileBox(id);
     }
 }

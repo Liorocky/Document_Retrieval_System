@@ -22,4 +22,11 @@
         VALUES (#{title}, #{desc}, #{count}, NOW(), NOW());
     </insert>
 
+    <delete id="deleteFileBox" parameterType="int">
+        DELETE
+        FROM
+            file_box
+        WHERE
+            id = #{id}
+    </delete>
 </mapper>

@@ -16,10 +16,19 @@ public class FileBoxController {
         return fileBoxService.getFileBox(id);
     }
 
-    @PostMapping("")
+    @PostMapping(value = {"/", ""})
     public String postFileBox(@RequestBody FileBox fileBox) {
         if (fileBoxService.postFileBox(fileBox) == 0) {
             return "failed";
+        } else {
+            return "success";
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteFile(@PathVariable int id) {
+        if (fileBoxService.deleteFileBox(id) == 0) {
+            return "fail";
         } else {
             return "success";
         }
