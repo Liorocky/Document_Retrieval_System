@@ -17,4 +17,9 @@
             id = #{id}
     </select>
 
+    <insert id="postFileBox">
+        INSERT INTO file_box (`title`, `desc`, `count`, `add_time`, `last_time`)
+        VALUES (#{title}, #{desc}, #{count}, NOW(), NOW());
+    </insert>
+
 </mapper>
