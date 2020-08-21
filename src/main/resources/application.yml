@@ -3,12 +3,29 @@ spring:
   profiles:
     active: dev
 
+  thymeleaf:
+    cache: false
+
+  # spring.mvc.static-path-pattern 配置的是，访问静态资源的uri
+  #spring.resources.static-locations 配置的是一个或者多个静态资源路径(文件夹)
+  #可以是classpath目录下的资源，使用classpath:开头
+  #可以是本地目录下的资源，使用file:开头
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/static/
+
+#热部署
+  devtools:
+    restart:
+      enabled: true
+
+
+
 #公共配置与profiles选择无关
 mybatis:
   typeAliasesPackage: top.warmj.pojo
   mapperLocations: classpath:mapper/*.xml
-
-
 ---
 
 #开发配置

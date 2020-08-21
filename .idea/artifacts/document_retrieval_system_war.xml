@@ -1,14 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="document-retrieval-system:war">
+  <artifact type="war" name="Document_Retrieval_System:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <module>document-retrieval-system</module>
+        <module>Document_Retrieval_System</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="archive" name="document-0.0.1-SNAPSHOT.war">
-      <element id="artifact" artifact-name="document-retrieval-system:war exploded" />
+      <element id="artifact" artifact-name="Document_Retrieval_System:war exploded" />
     </root>
   </artifact>
 </component>

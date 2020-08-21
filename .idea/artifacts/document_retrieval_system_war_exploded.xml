@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="document-retrieval-system:war exploded">
+  <artifact type="exploded-war" name="Document_Retrieval_System:war exploded">
     <output-path>$PROJECT_DIR$/target/document-0.0.1-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>document-retrieval-system</module>
+        <module>Document_Retrieval_System</module>
         <packaging>war</packaging>
       </options>
     </properties>
@@ -16,8 +16,6 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.3.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.3.3.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.3.3.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.3.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.3.3.RELEASE" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
@@ -58,6 +56,9 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.2.8.RELEASE" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.1.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.2" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-devtools:2.3.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.3.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.3.3.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
