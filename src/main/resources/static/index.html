@@ -1,20 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>文档检索系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>文档检索系统 - 长安通</title>
     <link rel="stylesheet" href="layui/css/layui.css">
 </head>
-<body>
-<script src="layui/layui.all.js"></script>
-<script>
-    //由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
-    !function(){
-        var layer = layui.layer
-            ,form = layui.form;
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">文档检索系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">文档管理</a></li>
+            <li class="layui-nav-item"><a href="">用户管理</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    root
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
 
-        layer.msg('Hello');
-    }();
-</script>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+
+                <li class="layui-nav-item"><a href="">检索文档</a></li>
+                <li class="layui-nav-item"><a href="">标签管理</a></li>
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:;">解决方案</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a href="javascript:;">列表一</a></dd>-->
+<!--                        <dd><a href="javascript:;">列表二</a></dd>-->
+<!--                        <dd><a href="">超链接</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="iframeMain" src="" style="width: 100%; height: 100%">
+        </iframe>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © xaykt.com - 西安长安通支付有限责任公司
+    </div>
+</div>
+<script src="layui/layui.all.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
