@@ -17,6 +17,15 @@
             id = #{id}
     </select>
 
+    <select id="getFiles" parameterType="int" resultType="top.warmj.pojo.File">
+        SELECT
+            *
+        FROM
+            file
+        WHERE
+            file_box_id = #{id}
+    </select>
+
     <insert id="postFileBox">
         INSERT INTO file_box (`title`, `desc`, `count`, `add_time`, `last_time`)
         VALUES (#{title}, #{desc}, #{count}, NOW(), NOW());

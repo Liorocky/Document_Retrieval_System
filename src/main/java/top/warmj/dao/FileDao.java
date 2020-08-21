@@ -10,9 +10,12 @@ import java.util.List;
 @Repository
 @Mapper
 public interface FileDao {
-    List<File> getFile(int fileBoxId);
+    File getFile(int id);
+
+    List<File> getAllFile();
 
     int postFile(File file);
 
     int deleteFile(int id);
+
 }

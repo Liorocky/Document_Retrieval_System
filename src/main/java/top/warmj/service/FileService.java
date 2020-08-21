@@ -2,11 +2,12 @@ package top.warmj.service;
 
 import top.warmj.pojo.File;
 
-import java.util.Date;
 import java.util.List;
 
 public interface FileService {
-    List<File> getFile(int fileBoxId);
+    File getFile(int id);
+
+    List<File> getAllFile();
 
     int postFile(File file);
 

@@ -2,8 +2,11 @@ package top.warmj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.warmj.pojo.File;
 import top.warmj.pojo.FileBox;
 import top.warmj.service.FileBoxService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fileBox")
@@ -16,7 +19,12 @@ public class FileBoxController {
         return fileBoxService.getFileBox(id);
     }
 
-    @PostMapping(value = {"/", ""})
+    @GetMapping("/{id}/files")
+    public List<File> getFiles(@PathVariable int id) {
+        return fileBoxService.getFiles(id);
+    }
+
+    @PostMapping({"/", ""})
     public String postFileBox(@RequestBody FileBox fileBox) {
         if (fileBoxService.postFileBox(fileBox) == 0) {
             return "failed";
@@ -26,9 +34,9 @@ public class FileBoxController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteFile(@PathVariable int id) {
+    public String deleteFileBox(@PathVariable int id) {
         if (fileBoxService.deleteFileBox(id) == 0) {
-            return "fail";
+            return "failed";
         } else {
             return "success";
         }

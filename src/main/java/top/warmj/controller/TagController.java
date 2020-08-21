@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import top.warmj.pojo.Tag;
 import top.warmj.service.TagService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tag")
 public class TagController {
@@ -14,6 +16,11 @@ public class TagController {
     @GetMapping("/{id}")
     public Tag getTag(@PathVariable int id) {
         return tagService.getTag(id);
+    }
+
+    @GetMapping({"/", ""})
+    public List<Tag> getAllTag() {
+        return tagService.getAllTag();
     }
 
     @PostMapping({"/", ""})

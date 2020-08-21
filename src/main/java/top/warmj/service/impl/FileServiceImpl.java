@@ -16,8 +16,13 @@ public class FileServiceImpl implements FileService {
     FileDao fileDao;
 
     @Override
-    public List<File> getFile(int fileBoxId) {
-        return fileDao.getFile(fileBoxId);
+    public File getFile(int id) {
+        return fileDao.getFile(id);
+    }
+
+    @Override
+    public List<File> getAllFile() {
+        return fileDao.getAllFile();
     }
 
     @Override

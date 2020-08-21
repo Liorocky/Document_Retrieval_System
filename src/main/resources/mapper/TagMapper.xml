@@ -12,6 +12,13 @@
             id = #{id}
     </select>
 
+    <select id="getAllTag" resultType="top.warmj.pojo.Tag">
+        SELECT
+            *
+        FROM
+            tag
+    </select>
+
     <insert id="postTag">
         INSERT INTO tag (id, name)
         VALUES ( #{id}, #{name} );

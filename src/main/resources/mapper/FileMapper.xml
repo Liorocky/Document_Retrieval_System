@@ -14,17 +14,18 @@
 
     <select id="getFile" parameterType="int" resultMap="FileResultMap">
         SELECT
-            id,
-            file_box_id,
-            number_order,
-            path,
-            type,
-            add_time,
-            last_time
+            *
         FROM
             file
         WHERE
-            file_box_id = #{fileBoxId}
+            id = #{id}
+    </select>
+
+    <select id="getAllFile" resultMap="FileResultMap">
+        SELECT
+            *
+        FROM
+            file
     </select>
 
     <insert id="postFile">

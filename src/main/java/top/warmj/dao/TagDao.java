@@ -14,4 +14,6 @@ public interface TagDao {
     int postTag(Tag tag);
 
     int deleteTag(int id);
+
+    List<Tag> getAllTag();
 }
