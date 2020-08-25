@@ -1,7 +1,7 @@
 // 文档检索表格
 var table = layui.table;
 table.render({
-    elem: '#test'
+    elem: '#file-box-table'
     ,url:'/fileBox/'
     // ,even: true // 隔行背景
     ,cellMinWidth: 80
@@ -30,7 +30,7 @@ table.render({
 var layer = layui.layer;
 
 //监听行单击事件
-table.on('row(test)', function(obj){
+table.on('row(file-box-table)', function(obj){
     // console.log(obj.tr) //得到当前行元素对象
     // console.log(obj.data) //得到当前行数据
 
@@ -43,4 +43,14 @@ table.on('row(test)', function(obj){
     //obj.update(fields) //修改当前行数据
 });
 
-
+// 标签
+var form = layui.form;
+form.on('select(tag-search)', function(data){
+    var tag_id = data.value; // 得到被选中标签的id
+    var tag_name = data.elem[data.value].label; // 得到被选中的标签名
+    var input = document.createElement("input");
+    input.type = 'checkbox';
+    input.title = tag_name;
+    $('#tag-block').append(input);
+    form.render("checkbox");
+});
