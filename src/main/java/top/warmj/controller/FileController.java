@@ -1,11 +1,13 @@
 package top.warmj.controller;
 
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.warmj.pojo.File;
+import top.warmj.pojo.Result;
 import top.warmj.service.FileService;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -15,34 +17,42 @@ public class FileController {
     FileService fileService;
 
     @GetMapping("/{id}")
-    public File getFile(@PathVariable int id) {
-        // 处理"/users/{fileBoxId}"的GET请求，用来获取url中fileBoxId值的File信息
-        // url中的fileBoxId可通过@PathVariable绑定到函数的参数中
-        return fileService.getFile(id);
+    public Result<List<File>> getFile(@PathVariable int id) {
+        File file = fileService.getFile(id);
+        if (file == null) {
+            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+        } else {
+            List<File> list = new LinkedList<>();
+            list.add(file);
+            return new Result<>(list);
+        }
     }
 
     @GetMapping({"/", ""})
-    public List<File> getAllFile() {
-        return fileService.getAllFile();
+    public Result<List<File>> getAllFile() {
+        List<File> list = fileService.getAllFile();
+        if (list.size() == 0) {
+            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+        } else {
+            return new Result<>(list);
+        }
     }
 
     @PostMapping({"/", ""})
-    @ResponseBody
-    public String postFile(@RequestBody File file) {
+    public Result<String> postFile(@RequestBody File file) {
         if (fileService.postFile(file) == 0) {
-            return "failed";
+            return new Result<>(new NotFoundException("错误，添加失败"));
         } else {
-            return "success";
+            return new Result<>("添加成功");
         }
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
-    public String deleteFile(@PathVariable int id) {
+    public Result<String> deleteFile(@PathVariable int id) {
         if (fileService.deleteFile(id) == 0) {
-            return "failed";
+            return new Result<>(new NotFoundException("错误，删除失败"));
         } else {
-            return "success";
+            return new Result<>("删除成功");
         }
     }
 }
