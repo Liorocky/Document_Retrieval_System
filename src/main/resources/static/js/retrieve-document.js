@@ -1,5 +1,7 @@
 // 文档检索表格
 var table = layui.table;
+
+// 初始化加载表格
 table.render({
     elem: '#file-box-table'
     ,url:'/fileBox/'
@@ -13,9 +15,6 @@ table.render({
         ,{field:'addTime', title: '添加时间', sort: true}
         ,{field:'lastTime', title: '修改时间', sort: true}
     ]]
-    ,response: {
-        statusCode: 0 //重新规定成功的状态码为 200，table 组件默认为 0
-    }
     ,parseData: function(res) { //将原始数据解析成 table 组件所规定的数据
         return {
             "code": 0, //解析接口状态
@@ -25,6 +24,48 @@ table.render({
         };
     }
 });
+
+// 搜索框回车事件
+$('#title-search').on('keydown', function (event) {
+    if (event.keyCode === 13) {
+        $('#search-btn').trigger("click");
+    }
+});
+
+
+// 点击搜索按钮
+function searchFileBox() {
+    var title = $("#title-search")[0].value;
+    var url = "http://localhost:8080/fileBox/title/" + title;
+
+    // 去空
+    if (title === "") {
+        return;
+    }
+
+    table.render({
+        elem: '#file-box-table'
+        ,url: url
+        // ,even: true // 隔行背景
+        ,cellMinWidth: 80
+        ,cols: [[
+            {field:'id', title: '序号', sort: true}
+            ,{field:'title', title: '标题'}
+            ,{field:'desc', title: '描述', sort: true}
+            ,{field:'count', title: '文件数量'}
+            ,{field:'addTime', title: '添加时间', sort: true}
+            ,{field:'lastTime', title: '修改时间', sort: true}
+        ]]
+        ,parseData: function(res) { //将原始数据解析成 table 组件所规定的数据
+            return {
+                "code": 0, //解析接口状态
+                "msg": res.message, //解析提示文本
+                // "count": 1, //解析数据长度
+                "data": res.data //解析数据列表
+            };
+        }
+    });
+}
 
 // 弹出fileBox
 var layer = layui.layer;
