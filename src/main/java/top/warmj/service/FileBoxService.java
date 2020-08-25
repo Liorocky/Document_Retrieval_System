@@ -9,6 +9,8 @@ public interface FileBoxService {
 
     FileBox getFileBox(int id);
 
+    List<FileBox> getAllFileBox();
+
     List<File> getFiles(int id);
 
     int postFileBox(FileBox fileBox);

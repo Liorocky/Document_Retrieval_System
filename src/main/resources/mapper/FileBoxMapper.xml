@@ -26,6 +26,13 @@
             file_box_id = #{id}
     </select>
 
+    <select id="getAllFileBox" resultMap="FileBoxResultMap">
+        SELECT
+            *
+        FROM
+            file_box
+    </select>
+
     <insert id="postFileBox">
         INSERT INTO file_box (`title`, `desc`, `count`, `add_time`, `last_time`)
         VALUES (#{title}, #{desc}, #{count}, NOW(), NOW());

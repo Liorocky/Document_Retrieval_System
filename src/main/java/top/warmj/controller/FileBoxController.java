@@ -29,6 +29,16 @@ public class FileBoxController {
         }
     }
 
+    @GetMapping({"/", ""})
+    public Result<List<FileBox>> getAllFile() {
+        List<FileBox> list = fileBoxService.getAllFileBox();
+        if (list.size() == 0) {
+            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+        } else {
+            return new Result<>(list);
+        }
+    }
+
     @GetMapping("/{id}/files")
     public Result<List<File>> getFiles(@PathVariable int id) {
         List<File> list = fileBoxService.getFiles(id);
