@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检索文档</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>文档搜索</legend>
+    </fieldset>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-sm9">
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入文档标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-col-sm3">
+            <button type="button" class="layui-btn">搜索</button>
+        </div>
+    </div>
+</div>
+
+    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+<div class="layui-form-item">
+
+</div>
+<script src="/js/jquery-1.12.4.min.js"></script>
+<script src="/layui/layui.all.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/retrieve-document.js"></script>
+</body>
+</html>

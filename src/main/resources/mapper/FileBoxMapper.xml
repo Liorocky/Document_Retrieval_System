@@ -8,6 +8,15 @@
         <result column="last_time" property="lastTime"/>
     </resultMap>
 
+    <resultMap type="File" id="FileResultMap">
+        <id column="file_box_id" property="fileBoxId" javaType="long" jdbcType="INTEGER"/>
+        <result column="number_order" property="numberOrder" javaType="long" jdbcType="INTEGER"/>
+        <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
+        <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>
+        <result column="add_time" property="addTime"/>
+        <result column="last_time" property="lastTime"/>
+    </resultMap>
+
     <select id="getFileBox" parameterType="int" resultMap="FileBoxResultMap">
         SELECT
             *
@@ -17,7 +26,7 @@
             id = #{id}
     </select>
 
-    <select id="getFiles" parameterType="int" resultType="top.warmj.pojo.File">
+    <select id="getFiles" parameterType="int" resultMap="FileResultMap">
         SELECT
             *
         FROM
