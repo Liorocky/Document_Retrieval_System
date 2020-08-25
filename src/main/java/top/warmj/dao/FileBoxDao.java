@@ -19,4 +19,7 @@ public interface FileBoxDao {
     List<File> getFiles(int id);
 
     List<FileBox> getAllFileBox();
+
+    List<FileBox> getFileBoxByTitle(String title);
+
 }

@@ -16,4 +16,6 @@ public interface FileBoxService {
     int postFileBox(FileBox fileBox);
 
     int deleteFileBox(int id);
+
+    List<FileBox> getFileBoxByTitle(String title);
 }

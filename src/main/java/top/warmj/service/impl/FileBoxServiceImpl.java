@@ -38,4 +38,9 @@ public class FileBoxServiceImpl implements FileBoxService {
     public int deleteFileBox(int id) {
         return fileBoxDao.deleteFileBox(id);
     }
+
+    @Override
+    public List<FileBox> getFileBoxByTitle(String title) {
+        return fileBoxDao.getFileBoxByTitle(title);
+    }
 }

@@ -67,4 +67,14 @@ public class FileBoxController {
             return new Result<>("删除成功");
         }
     }
+
+    @GetMapping("/title/{title}")
+    public Result<List<FileBox>> getFileBoxByTitle(@PathVariable String title) {
+        List<FileBox> list = fileBoxService.getFileBoxByTitle(title);
+        if (list.size() == 0) {
+            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+        } else {
+            return  new Result<>(list);
+        }
+    }
 }
