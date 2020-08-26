@@ -16,6 +16,11 @@ public class FileController {
     @Autowired
     FileService fileService;
 
+    /**
+     * 根据id获取文件
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result<List<File>> getFile(@PathVariable int id) {
         File file = fileService.getFile(id);
@@ -28,6 +33,10 @@ public class FileController {
         }
     }
 
+    /**
+     * 获取所有文件
+     * @return
+     */
     @GetMapping({"/", ""})
     public Result<List<File>> getAllFile() {
         List<File> list = fileService.getAllFile();
@@ -38,6 +47,11 @@ public class FileController {
         }
     }
 
+    /**
+     * 创建文件
+     * @param file
+     * @return
+     */
     @PostMapping({"/", ""})
     public Result<String> postFile(@RequestBody File file) {
         if (fileService.postFile(file) == 0) {
@@ -47,6 +61,11 @@ public class FileController {
         }
     }
 
+    /**
+     * 删除文件
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public Result<String> deleteFile(@PathVariable int id) {
         if (fileService.deleteFile(id) == 0) {

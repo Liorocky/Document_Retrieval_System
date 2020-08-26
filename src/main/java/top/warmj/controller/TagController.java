@@ -3,7 +3,6 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.pojo.File;
 import top.warmj.pojo.Result;
 import top.warmj.pojo.Tag;
 import top.warmj.service.TagService;
@@ -17,6 +16,11 @@ public class TagController {
     @Autowired
     TagService tagService;
 
+    /**
+     * 根据id获取标签
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result<List<Tag>> getTag(@PathVariable int id) {
         Tag tag = tagService.getTag(id);
@@ -29,6 +33,10 @@ public class TagController {
         }
     }
 
+    /**
+     * 获取所有标签
+     * @return
+     */
     @GetMapping({"/", ""})
     public Result<List<Tag>> getAllTag() {
         List<Tag> list = tagService.getAllTag();
@@ -39,6 +47,11 @@ public class TagController {
         }
     }
 
+    /**
+     * 创建标签
+     * @param tag
+     * @return
+     */
     @PostMapping({"/", ""})
     public Result<String> postTag(@RequestBody Tag tag) {
         if (tagService.postTag(tag) == 0) {
@@ -48,6 +61,11 @@ public class TagController {
         }
     }
 
+    /**
+     * 删除标签
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public Result<String> deleteTag(@PathVariable int id) {
         if (tagService.deleteTag(id) == 0) {

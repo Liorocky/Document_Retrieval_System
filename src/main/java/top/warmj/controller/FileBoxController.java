@@ -17,6 +17,11 @@ public class FileBoxController {
     @Autowired
     FileBoxService fileBoxService;
 
+    /**
+     * 根据id获取文档集
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result<List<FileBox>> getFileBox(@PathVariable int id) {
         FileBox fileBox = fileBoxService.getFileBox(id);
@@ -29,8 +34,12 @@ public class FileBoxController {
         }
     }
 
+    /**
+     * 获取所有文档集
+     * @return
+     */
     @GetMapping({"/", ""})
-    public Result<List<FileBox>> getAllFile() {
+    public Result<List<FileBox>> getAllFileBox() {
         List<FileBox> list = fileBoxService.getAllFileBox();
         if (list.size() == 0) {
             return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
@@ -39,6 +48,11 @@ public class FileBoxController {
         }
     }
 
+    /**
+     * 根据某个文档集中的所有文件
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}/files")
     public Result<List<File>> getFiles(@PathVariable int id) {
         List<File> list = fileBoxService.getFiles(id);
@@ -50,6 +64,11 @@ public class FileBoxController {
         }
     }
 
+    /**
+     * 创建文档集
+     * @param fileBox
+     * @return
+     */
     @PostMapping({"/", ""})
     public Result<String> postFileBox(@RequestBody FileBox fileBox) {
         if (fileBoxService.postFileBox(fileBox) == 0) {
@@ -59,6 +78,11 @@ public class FileBoxController {
         }
     }
 
+    /**
+     * 删除文档集
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public Result<String> deleteFileBox(@PathVariable int id) {
         if (fileBoxService.deleteFileBox(id) == 0) {

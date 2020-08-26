@@ -8,6 +8,7 @@ public class File {
 
   private long id;
   private long fileBoxId;
+  private String fileName;
   private long numberOrder;
   private String path;
   private String type;
@@ -46,6 +47,13 @@ public class File {
     this.numberOrder = numberOrder;
   }
 
+  public String getFileName() {
+    return fileName;
+  }
+
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
+  }
 
   public String getPath() {
     return path;

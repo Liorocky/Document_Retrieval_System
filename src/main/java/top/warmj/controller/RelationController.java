@@ -3,8 +3,6 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.pojo.File;
-import top.warmj.pojo.FileBox;
 import top.warmj.pojo.Relation;
 import top.warmj.pojo.Result;
 import top.warmj.service.RelationService;
@@ -18,6 +16,11 @@ public class RelationController {
     @Autowired
     RelationService relationService;
 
+    /**
+     * 根据id获取映射关系
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Result<List<Relation>> getRelation(@PathVariable int id) {
         Relation relation = relationService.getRelation(id);
@@ -30,6 +33,10 @@ public class RelationController {
         }
     }
 
+    /**
+     * 获取所有映射关系
+     * @return
+     */
     @GetMapping({"/", ""})
     public Result<List<Relation>> getAllFile() {
         List<Relation> list = relationService.getAllRelation();
@@ -40,6 +47,11 @@ public class RelationController {
         }
     }
 
+    /**
+     * 创建映射关系
+     * @param relation
+     * @return
+     */
     @PostMapping({"/", ""})
     public Result<String> postRelation(@RequestBody Relation relation) {
         if (relationService.postRelation(relation) == 0) {
@@ -49,6 +61,11 @@ public class RelationController {
         }
     }
 
+    /**
+     * 删除映射关系
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public Result<String> deleteFile(@PathVariable int id) {
         if (relationService.deleteRelation(id) == 0) {
