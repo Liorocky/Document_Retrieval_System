@@ -12,12 +12,12 @@
         <div class="layui-logo">文档检索系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="pages/retrieve-document.html">文档管理</a></li>
+            <li class="layui-nav-item"><a href="">文档管理</a></li>
             <li class="layui-nav-item"><a href="">用户管理</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
+                <a href="javascript:">
                     root
                 </a>
                 <dl class="layui-nav-child">
@@ -32,9 +32,9 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-
-                <li class="layui-nav-item"><a href="pages/retrieve-document.html">检索文档</a></li>
+            <ul class="layui-nav layui-nav-tree"  lay-filter="pages-tree">
+                <li class="layui-nav-item"><a href="pages/retrieve-document.html" target="iframeMain">检索文档</a></li>
+                <li class="layui-nav-item"><a href="pages/upload-document.html" target="iframeMain">录入文档</a></li>
                 <li class="layui-nav-item"><a href="">标签管理</a></li>
 <!--                <li class="layui-nav-item">-->
 <!--                    <a href="javascript:;">解决方案</a>-->
@@ -50,7 +50,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <iframe id="iframeMain" src="pages/retrieve-document.html" style="width: 100%; height: 100%">
+        <iframe id="iframeMain" name="iframeMain" src="pages/retrieve-document.html" style="width: 100%; height: 100%">
         </iframe>
     </div>
 

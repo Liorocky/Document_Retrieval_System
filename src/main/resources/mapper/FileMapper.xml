@@ -6,6 +6,7 @@
     <resultMap type="File" id="FileResultMap">
         <id column="file_box_id" property="fileBoxId" javaType="long" jdbcType="INTEGER"/>
         <result column="number_order" property="numberOrder" javaType="long" jdbcType="INTEGER"/>
+        <result column="file_name" property="fileName" javaType="String" jdbcType="VARCHAR"/>
         <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
         <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>
         <result column="add_time" property="addTime"/>
@@ -28,9 +29,18 @@
             file
     </select>
 
+    <select id="getFiles" parameterType="int" resultMap="FileResultMap">
+        SELECT
+            *
+        FROM
+            file
+        WHERE
+            file_box_id = #{id}
+    </select>
+
     <insert id="postFile">
-        INSERT INTO file (file_box_id, number_order, path, type, add_time, last_time)
-        VALUES ( #{fileBoxId}, #{numberOrder}, #{path}, #{type}, NOW(), NOW());
+        INSERT INTO file (file_box_id, file_name, number_order, path, type, add_time, last_time)
+        VALUES ( #{fileBoxId}, #{fileName}, #{numberOrder}, #{path}, #{type}, NOW(), NOW());
     </insert>
 
     <delete id="deleteFile" parameterType="int">

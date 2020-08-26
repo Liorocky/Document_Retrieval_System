@@ -27,15 +27,6 @@
             id = #{id}
     </select>
 
-    <select id="getFiles" parameterType="int" resultMap="FileResultMap">
-        SELECT
-            *
-        FROM
-            file
-        WHERE
-            file_box_id = #{id}
-    </select>
-
     <select id="getAllFileBox" resultMap="FileBoxResultMap">
         SELECT
             *
