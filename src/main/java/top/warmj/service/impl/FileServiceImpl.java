@@ -26,6 +26,11 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public List<File> getFiles(int id) {
+        return fileDao.getFiles(id);
+    }
+
+    @Override
     public int postFile(File file) {
         return fileDao.postFile(file);
     }

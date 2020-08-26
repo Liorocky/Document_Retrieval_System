@@ -14,6 +14,8 @@ public interface FileDao {
 
     List<File> getAllFile();
 
+    List<File> getFiles(int id);
+
     int postFile(File file);
 
     int deleteFile(int id);

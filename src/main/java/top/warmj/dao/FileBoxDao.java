@@ -16,8 +16,6 @@ public interface FileBoxDao {
 
     int deleteFileBox(int id);
 
-    List<File> getFiles(int id);
-
     List<FileBox> getAllFileBox();
 
     List<FileBox> getFileBoxByTitle(String title);

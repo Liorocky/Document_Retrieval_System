@@ -49,22 +49,6 @@ public class FileBoxController {
     }
 
     /**
-     * 根据某个文档集中的所有文件
-     * @param id
-     * @return
-     */
-    @GetMapping("/{id}/files")
-    public Result<List<File>> getFiles(@PathVariable int id) {
-        List<File> list = fileBoxService.getFiles(id);
-        Result<List<File>> result = new Result<>(list);
-        if (list.size() == 0) {
-            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
-        } else {
-            return result;
-        }
-    }
-
-    /**
      * 创建文档集
      * @param fileBox
      * @return

@@ -21,13 +21,6 @@ public interface FileBoxService {
     List<FileBox> getAllFileBox();
 
     /**
-     * 根据某个文档集中的所有文件
-     * @param id
-     * @return
-     */
-    List<File> getFiles(int id);
-
-    /**
      * 创建文档集
      * @param fileBox
      * @return

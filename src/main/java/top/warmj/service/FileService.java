@@ -19,6 +19,13 @@ public interface FileService {
     List<File> getAllFile();
 
     /**
+     * 获取某个文档集下的所有文件
+     * @param id
+     * @return
+     */
+    List<File> getFiles(int id);
+
+    /**
      * 创建文件
      * @param file
      * @return

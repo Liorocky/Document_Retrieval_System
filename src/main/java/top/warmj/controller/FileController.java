@@ -48,6 +48,22 @@ public class FileController {
     }
 
     /**
+     * 获取某个文档集中的所有文件
+     * @param id
+     * @return
+     */
+    @GetMapping("/fileBox/{id}")
+    public Result<List<File>> getFiles(@PathVariable int id) {
+        List<File> list = fileService.getFiles(id);
+        Result<List<File>> result = new Result<>(list);
+        if (list.size() == 0) {
+            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+        } else {
+            return result;
+        }
+    }
+
+    /**
      * 创建文件
      * @param file
      * @return
