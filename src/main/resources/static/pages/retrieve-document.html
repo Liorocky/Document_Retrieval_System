@@ -10,7 +10,7 @@
         <legend>文档搜索</legend>
     </fieldset>
 
-<div class="layui-fluid">
+<div class="layui-fluid layui-form" >
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md9">
             <div class="layui-input-block">
@@ -20,52 +20,22 @@
         <div class="layui-col-md3">
             <button type="button" id="search-btn" class="layui-btn" onclick="searchFileBox()">搜索</button>
         </div>
+
         <div class="layui-col-md9">
-            <form class="layui-form" id="tag-form" action="">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">标签</label>
-                    <div class="layui-input-block" id="tag-block">
-                        <input type="checkbox" name="like[write]" title="写作">
-                        <input type="checkbox" name="like[read]" title="阅读" checked>
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                    </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">标签</label>
+                <div class="layui-input-block" id="tag-block">
                 </div>
-            </form>
+            </div>
         </div>
 
-        <dic class="layui-col-md3">
-            <form class="layui-form" id="form-search-tag" action="">
+        <div class="layui-col-md3">
             <label>
                 <select id="tag-search" lay-verify="required" lay-filter="tag-search" lay-search>
-                    <option value="">直接选择或搜索标签</option>
-                    <option value="1">layer</option>
-                    <option value="2">form</option>
-                    <option value="3">layim</option>
-                    <option value="4">element</option>
-                    <option value="5">laytpl</option>
-                    <option value="6">upload</option>
-                    <option value="7">laydate</option>
-                    <option value="8">laypage</option>
-                    <option value="9">flow</option>
-                    <option value="10">util</option>
-                    <option value="11">code</option>
-                    <option value="12">tree</option>
-                    <option value="13">layedit</option>
-                    <option value="14">nav</option>
-                    <option value="15">tab</option>
-                    <option value="16">table</option>
-                    <option value="17">select</option>
-                    <option value="18">checkbox</option>
-                    <option value="19">switch</option>
-                    <option value="20">radio</option>
+                    <option value="">选择或搜索标签</option>
                 </select>
             </label>
-            </form>
-        </dic>
+        </div>
     </div>
 </div>
 
