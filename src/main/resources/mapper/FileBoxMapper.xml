@@ -34,7 +34,7 @@
             file_box
     </select>
 
-    <insert id="postFileBox">
+    <insert id="postFileBox" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO file_box (`title`, `desc`, `count`, `add_time`, `last_time`)
         VALUES (#{title}, #{desc}, #{count}, NOW(), NOW());
     </insert>

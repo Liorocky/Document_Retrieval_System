@@ -26,7 +26,8 @@ public class FileBoxServiceImpl implements FileBoxService {
 
     @Override
     public int postFileBox(FileBox fileBox) {
-        return fileBoxDao.postFileBox(fileBox);
+        fileBoxDao.postFileBox(fileBox);
+        return (int) fileBox.getId(); // 返回自增id
     }
 
     @Override

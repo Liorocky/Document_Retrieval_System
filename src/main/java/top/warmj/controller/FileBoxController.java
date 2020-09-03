@@ -51,14 +51,15 @@ public class FileBoxController {
     /**
      * 创建文档集
      * @param fileBox
-     * @return
+     * @return 返回自增的id值
      */
     @PostMapping({"/", ""})
-    public Result<String> postFileBox(@RequestBody FileBox fileBox) {
-        if (fileBoxService.postFileBox(fileBox) == 0) {
+    public Result<Integer> postFileBox(@RequestBody FileBox fileBox) {
+        int res = fileBoxService.postFileBox(fileBox);
+        if (res == 0) {
             return new Result<>(new NotFoundException("错误，添加失败"));
         } else {
-            return new Result<>("添加成功");
+            return new Result<>(res);
         }
     }
 
