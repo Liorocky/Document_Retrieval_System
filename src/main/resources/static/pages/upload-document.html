@@ -4,118 +4,89 @@
     <meta charset="UTF-8">
     <title>录入文档</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
-
 </head>
 <body>
 <fieldset class="layui-elem-field layui-field-title">
     <legend>录入文档</legend>
 </fieldset>
 <div class="layui-fluid">
-    <div class="layui-row layui-col-space30">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">文档标题</label>
-            <div class="layui-input-block">
-                <input type="text" id="title-search" name="title" lay-verify="title" autocomplete="off"
-                       placeholder="请输入标题" class="layui-input">
+    <div class="layui-form">
+        <div class="layui-row layui-col-space30">
+            <div class="layui-col-md6">
+                <label class="layui-form-label">文档标题</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title-input" name="title" lay-verify="required" autocomplete="off"
+                           placeholder="请输入标题" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-col-md2 layui-col-md-offset2">
+                <button type="button" class="layui-btn layui-btn-normal" id="choose-btn">
+                    <i class="layui-icon layui-icon-file"></i>选择文档
+                </button>
+            </div>
+
+            <div class="layui-col-md2">
+                <button lay-submit type="button" class="layui-btn" id="upload-btn" onclick="checkFileBox();">
+                    <i class="layui-icon layui-icon-upload"></i>确认录入
+                </button>
             </div>
         </div>
-        <div class="layui-col-md2 layui-col-md-offset2">
-            <button type="button" class="layui-btn layui-btn-normal" id="choose-btn">
-                <i class="layui-icon layui-icon-file"></i>选择文档
-            </button>
-        </div>
 
-        <div class="layui-col-md2">
-            <button type="button" class="layui-btn" id="upload-btn">
-                <i class="layui-icon layui-icon-upload"></i>确认录入
-            </button>
-        </div>
-    </div>
-
-    <div class="layui-row">
-        <div class="layui-col-md12">
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">文档描述</label>
-                <div class="layui-input-block">
-                    <textarea name="desc" placeholder="请输入描述内容" class="layui-textarea" style="resize: none"></textarea>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">文档描述</label>
+                    <div class="layui-input-block">
+                        <textarea id="desc-input" placeholder="请输入描述内容" lay-verify="required" class="layui-textarea" style="resize: none"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="layui-row">
+    <div class="layui-row layui-col-space5">
         <div class="layui-col-md9">
             <form class="layui-form" id="tag-form" action="">
                 <div class="layui-form-item">
                     <label class="layui-form-label">选择标签</label>
                     <div class="layui-input-block" id="tag-block">
-                        <input type="checkbox" name="like[write]" title="写作">
-                        <input type="checkbox" name="like[read]" title="阅读" checked>
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
-                        <input type="checkbox" name="like[dai]" title="发呆">
+
                     </div>
                 </div>
             </form>
         </div>
 
-        <dic class="layui-col-md3">
+        <div class="layui-col-md2">
             <form class="layui-form" id="form-search-tag" action="">
                 <label>
                     <select id="tag-search" lay-verify="required" lay-filter="tag-search" lay-search>
-                        <option value="">直接选择或搜索标签</option>
-                        <option value="1">layer</option>
-                        <option value="2">form</option>
-                        <option value="3">layim</option>
-                        <option value="4">element</option>
-                        <option value="5">laytpl</option>
-                        <option value="6">upload</option>
-                        <option value="7">laydate</option>
-                        <option value="8">laypage</option>
-                        <option value="9">flow</option>
-                        <option value="10">util</option>
-                        <option value="11">code</option>
-                        <option value="12">tree</option>
-                        <option value="13">layedit</option>
-                        <option value="14">nav</option>
-                        <option value="15">tab</option>
-                        <option value="16">table</option>
-                        <option value="17">select</option>
-                        <option value="18">checkbox</option>
-                        <option value="19">switch</option>
-                        <option value="20">radio</option>
+                        <option value="">选择或搜索标签</option>
                     </select>
                 </label>
             </form>
-        </dic>
+        </div>
+
+        <div class="layui-col-md1">
+            <button class="layui-btn">新建</button>
+        </div>
+
     </div>
 </div>
-
-<!--<table class="layui-hide" id="file-upload-table" lay-filter="file-upload-table"></table>-->
-
-<!--<script type="text/html" id="bar">-->
-<!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
-<!--</script>-->
-
 <div class="layui-upload">
-    <!--    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>-->
     <div class="layui-upload-list">
         <table class="layui-table">
             <thead>
             <tr>
+                <th>序号</th>
                 <th>文件名</th>
                 <th>大小</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody id="demoList"></tbody>
+            <tbody id="upload-list"></tbody>
         </table>
     </div>
-    <!--    <button type="button" class="layui-btn" id="testListAction">开始上传</button>-->
 </div>
 
 <script src="/js/jquery-1.12.4.min.js"></script>

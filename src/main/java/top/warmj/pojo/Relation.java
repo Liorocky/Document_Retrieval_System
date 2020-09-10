@@ -3,34 +3,40 @@ package top.warmj.pojo;
 
 public class Relation {
 
-  private long id;
-  private long tagId;
-  private long fileBoxId;
+  private int id;
+  private int tagId;
+  private int fileBoxId;
 
+  public Relation(int tagId, int fileBoxId) {
+    this.tagId = tagId;
+    this.fileBoxId = fileBoxId;
+  }
 
-  public long getId() {
+  public Relation(){}
+
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
 
-  public long getTagId() {
+  public int getTagId() {
     return tagId;
   }
 
-  public void setTagId(long tagId) {
+  public void setTagId(int tagId) {
     this.tagId = tagId;
   }
 
 
-  public long getFileBoxId() {
+  public int getFileBoxId() {
     return fileBoxId;
   }
 
-  public void setFileBoxId(long fileBoxId) {
+  public void setFileBoxId(int fileBoxId) {
     this.fileBoxId = fileBoxId;
   }
 

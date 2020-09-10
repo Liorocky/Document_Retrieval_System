@@ -6,10 +6,10 @@ import java.util.Date;
 
 public class File {
 
-  private long id;
-  private long fileBoxId;
+  private int id;
+  private int fileBoxId;
   private String fileName;
-  private long numberOrder;
+  private int numberOrder;
   private String path;
   private String type;
 
@@ -21,29 +21,29 @@ public class File {
   private Date lastTime;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
 
-  public long getFileBoxId() {
+  public int getFileBoxId() {
     return fileBoxId;
   }
 
-  public void setFileBoxId(long fileBoxId) {
+  public void setFileBoxId(int fileBoxId) {
     this.fileBoxId = fileBoxId;
   }
 
 
-  public long getNumberOrder() {
+  public int getNumberOrder() {
     return numberOrder;
   }
 
-  public void setNumberOrder(long numberOrder) {
+  public void setNumberOrder(int numberOrder) {
     this.numberOrder = numberOrder;
   }
 

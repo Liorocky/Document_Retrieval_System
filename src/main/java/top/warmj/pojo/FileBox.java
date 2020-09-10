@@ -7,10 +7,10 @@ import java.util.Date;
 
 public class FileBox {
 
-  private long id;
+  private int id;
   private String title;
   private String desc;
-  private long count;
+  private int count;
 
   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
   private Date addTime;
@@ -18,11 +18,11 @@ public class FileBox {
   private Date lastTime;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -45,11 +45,11 @@ public class FileBox {
   }
 
 
-  public long getCount() {
+  public int getCount() {
     return count;
   }
 
-  public void setCount(long count) {
+  public void setCount(int count) {
     this.count = count;
   }
 
