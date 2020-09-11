@@ -5,19 +5,21 @@ import org.springframework.stereotype.Repository;
 import top.warmj.pojo.File;
 import top.warmj.pojo.FileBox;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
 @Repository
 public interface FileBoxDao {
-    FileBox getFileBox(int id);
+
+    List<FileBox> getAllFileBox();
+
+    List<FileBox> getFileBoxByIdList(List<Integer> idList);
 
     int postFileBox(FileBox fileBox);
 
     int deleteFileBox(int id);
 
-    List<FileBox> getAllFileBox();
-
-    List<FileBox> getFileBoxByTitle(String title);
+    List<HashMap<String, Object>> getFileBoxByTitle(String title);
 
 }

@@ -10,28 +10,30 @@
     </resultMap>
 
     <resultMap type="File" id="FileResultMap">
-        <id column="file_box_id" property="fileBoxId" javaType="long" jdbcType="INTEGER"/>
-        <result column="number_order" property="numberOrder" javaType="long" jdbcType="INTEGER"/>
+        <id column="file_box_id" property="fileBoxId" javaType="int" jdbcType="INTEGER"/>
+        <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
         <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
         <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>
         <result column="add_time" property="addTime"/>
         <result column="last_time" property="lastTime"/>
     </resultMap>
 
-    <select id="getFileBox" parameterType="int" resultMap="FileBoxResultMap">
-        SELECT
-            *
-        FROM
-            file_box
-        WHERE
-            id = #{id}
-    </select>
-
     <select id="getAllFileBox" resultMap="FileBoxResultMap">
         SELECT
             *
         FROM
             file_box
+    </select>
+
+    <select id="getFileBoxByIdList" resultMap="FileBoxResultMap">
+        SELECT
+            *
+        FROM
+            file_box
+        WHERE id IN
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </select>
 
     <insert id="postFileBox" useGeneratedKeys="true" keyProperty="id">
@@ -47,13 +49,16 @@
             id = #{id}
     </delete>
 
-    <select id="getFileBoxByTitle" parameterType="java.lang.String" resultMap="FileBoxResultMap">
+    <select id="getFileBoxByTitle" parameterType="java.lang.String" resultType="java.util.HashMap">
         SELECT
-            *
+            file_box_id,
+            GROUP_CONCAT( tag_id ) AS tag_id
         FROM
-            file_box
+            relation
         WHERE
-            title LIKE concat('%', #{title}, '%')
+            file_box_id IN ( SELECT id FROM file_box WHERE title LIKE concat('%', #{title}, '%') )
+        GROUP BY
+            file_box_id
     </select>
 
 </mapper>

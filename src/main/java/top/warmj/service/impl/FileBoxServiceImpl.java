@@ -3,10 +3,10 @@ package top.warmj.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.warmj.dao.FileBoxDao;
-import top.warmj.pojo.File;
 import top.warmj.pojo.FileBox;
 import top.warmj.service.FileBoxService;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -15,13 +15,13 @@ public class FileBoxServiceImpl implements FileBoxService {
     FileBoxDao fileBoxDao;
 
     @Override
-    public FileBox getFileBox(int id) {
-        return fileBoxDao.getFileBox(id);
+    public List<FileBox> getAllFileBox() {
+        return fileBoxDao.getAllFileBox();
     }
 
     @Override
-    public List<FileBox> getAllFileBox() {
-        return fileBoxDao.getAllFileBox();
+    public List<FileBox> getFileBoxByIdList(List<Integer> idList) {
+        return fileBoxDao.getFileBoxByIdList(idList);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class FileBoxServiceImpl implements FileBoxService {
     }
 
     @Override
-    public List<FileBox> getFileBoxByTitle(String title) {
+    public List<HashMap<String, Object>> getFileBoxByTitle(String title) {
         return fileBoxDao.getFileBoxByTitle(title);
     }
 }

@@ -1,24 +1,25 @@
 package top.warmj.service;
 
+import org.omg.PortableInterceptor.INACTIVE;
 import top.warmj.pojo.File;
 import top.warmj.pojo.FileBox;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface FileBoxService {
-
-    /**
-     * 根据id获取某个文档集
-     * @param id
-     * @return
-     */
-    FileBox getFileBox(int id);
 
     /**
      * 获取所有文档集
      * @return
      */
     List<FileBox> getAllFileBox();
+
+    /**
+     * 通过idList获取文档集
+     * @return
+     */
+    List<FileBox> getFileBoxByIdList(List<Integer> idList);
 
     /**
      * 创建文档集
@@ -35,9 +36,9 @@ public interface FileBoxService {
     int deleteFileBox(int id);
 
     /**
-     * 根据标题获取文档集
+     * 根据标题、标签获取文档集
      * @param title
      * @return
      */
-    List<FileBox> getFileBoxByTitle(String title);
+    List<HashMap<String, Object>> getFileBoxByTitle(String title);
 }
