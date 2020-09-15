@@ -135,12 +135,9 @@ form.on('select(tag-search)', function (data) {
     var $input = $("<input type='checkbox' checked lay-filter='tag_selected' value=" + tag_id + " title=" + tag_name + ">");
     $('#tag-block').append($input);
 
-    // 从select列表中移除已选中的tag
-    $('option').remove("[value=" + tag_id + "]");
-
-    // 将id添加到set集合中
-    tags_selected.add(tag_id);
-
+    $('option').remove("[value=" + tag_id + "]");// 从select列表中移除已选中的tag
+    tags_selected.add(tag_id);// 将id添加到set集合中
+    searchFileBox(); // 重新加载列表
     form.render();
 });
 
@@ -153,5 +150,4 @@ form.on('checkbox(tag_selected)', function(data){
     }
 
     searchFileBox(); // 重新加载列表
-    console.log(tags_selected);
 });
