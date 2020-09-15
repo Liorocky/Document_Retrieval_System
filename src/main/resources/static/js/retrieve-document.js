@@ -40,11 +40,6 @@ $('#title-search').on('keydown', function (event) {
 function searchFileBox() {
     var title = $("#title-search")[0].value;
 
-    // 去空
-    if (title === "") {
-        return;
-    }
-
     // 根据条件筛选返回的数据重载表格
     table.reload('file-box-table', {
         url: '/fileBox/title/tags'
@@ -58,24 +53,6 @@ function searchFileBox() {
             this.where = {};
         }
     });
-
-    // $.ajax({
-    //     url: "/fileBox/title/tags",
-    //     type: 'POST', //请求方法，GET、POST、PUT、DELETE在这里设置
-    //     timeout: 5000,    //超时时间
-    //     dataType: 'json',
-    //     contentType: 'application/json',
-    //     data: JSON.stringify({
-    //         "title": title,
-    //         "tags": Array.from(tags_selected)
-    //     }),
-    //     success: function (data, textStatus, jqXHR) {
-    //         console.log(data);
-    //     },
-    //     error: function (xhr, textStatus) {
-    //         console.log(textStatus);
-    //     }
-    // })
 }
 
 // 弹出fileBox

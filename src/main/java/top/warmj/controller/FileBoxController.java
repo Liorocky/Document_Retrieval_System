@@ -129,11 +129,15 @@ public class FileBoxController {
         String title = (String) map.get("title");
 
         // 将前端传入的tags转为set集合 注意string 和 int
-        ArrayList<String> tagsReqString = (ArrayList<String>) map.get("tags");
+        ArrayList<Object> tagsReqObject = (ArrayList<Object>) map.get("tags");
         ArrayList<Integer> tagsReqInt = new ArrayList<>();
-        // 将tagsReq中的每一项转化为int类型
-        for (String s : tagsReqString) {
-            tagsReqInt.add(Integer.parseInt(s));
+        // 判断tagsReqObject中元素的属性 然后放入list中
+        for (Object s : tagsReqObject) {
+            if (s instanceof String) {
+                tagsReqInt.add(Integer.valueOf((String) s));
+            } else {
+                tagsReqInt.add((Integer) s);
+            }
         }
         Set<Integer> tagsFromReq = new HashSet<>(tagsReqInt);
 
@@ -147,7 +151,6 @@ public class FileBoxController {
 
         // 根据标题获取文档集与标签的映射关系列表
         List<HashMap<String, Object>> relationList = fileBoxService.getFileBoxByTitle(title);
-        System.out.println("relationList:" + relationList);
 
         // 遍历list 取交集 将符合条件的id放入fileBoxIdList中
         for (HashMap<String, Object> m : relationList) {
@@ -162,10 +165,6 @@ public class FileBoxController {
                 tagsFromTemp.add(Integer.parseInt(tagArr[i]));
             }
 
-            System.out.println("tagsFromDB1:" + tagsFromDB);
-            System.out.println("tagsFromTemp1:" + tagsFromTemp);
-            System.out.println("tagsFromReq1:" + tagsFromReq);
-
             // 使用临时集合交集判断
             // 只要交集和之前db查出来的一样，说明符合条件
             tagsFromTemp.retainAll(tagsFromReq);
@@ -173,13 +172,6 @@ public class FileBoxController {
                 // 符合条件 将id放入fileBoxIdList中
                 fileBoxIdList.add((Integer) m.get("file_box_id"));
             }
-
-            System.out.println("tagsFromDB2:" + tagsFromDB);
-            System.out.println("tagsFromTemp2:" + tagsFromTemp);
-            System.out.println("tagsFromReq2:" + tagsFromReq);
-
-
-            System.out.println("fileBoxIdList:" + fileBoxIdList);
         }
 
         // 返回的FileBox列表
@@ -190,7 +182,6 @@ public class FileBoxController {
             // 返回异常消息
             return new Result<>(e);
         }
-        System.out.println("fileBoxList:" + fileBoxList);
         return new Result<>(fileBoxList);
     }
 }
