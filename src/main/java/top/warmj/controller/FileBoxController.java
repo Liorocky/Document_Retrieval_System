@@ -130,6 +130,17 @@ public class FileBoxController {
 
         // 将前端传入的tags转为set集合 注意string 和 int
         ArrayList<Object> tagsReqObject = (ArrayList<Object>) map.get("tags");
+
+        // 如果标题为空且tag为空，说明查询所有文档集
+        if (title.equals("") && tagsReqObject.isEmpty()) {
+            return getAllFileBox();
+        }
+
+        // 如果标题不为空 但 tag为空 直接调接口
+        if (!title.equals("") && tagsReqObject.isEmpty()) {
+            return new Result<>(fileBoxService.getFileBoxByTitle(title));
+        }
+
         ArrayList<Integer> tagsReqInt = new ArrayList<>();
         // 判断tagsReqObject中元素的属性 然后放入list中
         for (Object s : tagsReqObject) {
@@ -141,16 +152,11 @@ public class FileBoxController {
         }
         Set<Integer> tagsFromReq = new HashSet<>(tagsReqInt);
 
-        // 如果标题为空且tag为空，说明查询所有文档集
-        if (title.equals("") && tagsFromReq.isEmpty()) {
-            return getAllFileBox();
-        }
-
         // 根据标题、标签筛选之后的id列表
         List<Integer> fileBoxIdList = new LinkedList<>();
 
         // 根据标题获取文档集与标签的映射关系列表
-        List<HashMap<String, Object>> relationList = fileBoxService.getFileBoxByTitle(title);
+        List<HashMap<String, Object>> relationList = fileBoxService.getRelationListByTitle(title);
 
         // 遍历list 取交集 将符合条件的id放入fileBoxIdList中
         for (HashMap<String, Object> m : relationList) {
@@ -158,17 +164,15 @@ public class FileBoxController {
             Set<Integer> tagsFromDB = new HashSet<>();
 
             // 从map中获取id
-            Set<Integer> tagsFromTemp = new HashSet<>();  // 临时  交集使用
             String[] tagArr = ((String) m.get("tag_id")).split(",");
-            for (int i = 0; i < tagArr.length; i++) {
-                tagsFromDB.add(Integer.parseInt(tagArr[i]));
-                tagsFromTemp.add(Integer.parseInt(tagArr[i]));
+            for (String s : tagArr) {
+                tagsFromDB.add(Integer.parseInt(s));
             }
 
             // 使用临时集合交集判断
             // 只要交集和之前db查出来的一样，说明符合条件
-            tagsFromTemp.retainAll(tagsFromReq);
-            if (tagsFromReq.equals(tagsFromTemp)) {
+            tagsFromDB.retainAll(tagsFromReq);
+            if (tagsFromReq.equals(tagsFromDB)) {
                 // 符合条件 将id放入fileBoxIdList中
                 fileBoxIdList.add((Integer) m.get("file_box_id"));
             }
@@ -176,12 +180,10 @@ public class FileBoxController {
 
         // 返回的FileBox列表
         List<FileBox> fileBoxList;
-        try {
-            fileBoxList = fileBoxService.getFileBoxByIdList(fileBoxIdList);
-        } catch (Exception e) {
-            // 返回异常消息
-            return new Result<>(e);
+        if (fileBoxIdList.isEmpty()) {
+            return new Result<>(new NotFoundException("没有数据"));
         }
+        fileBoxList = fileBoxService.getFileBoxByIdList(fileBoxIdList);
         return new Result<>(fileBoxList);
     }
 }

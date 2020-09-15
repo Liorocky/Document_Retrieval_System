@@ -151,5 +151,7 @@ form.on('checkbox(tag_selected)', function(data){
     } else {
         tags_selected.delete(data.value);
     }
+
+    searchFileBox(); // 重新加载列表
     console.log(tags_selected);
 });

@@ -36,9 +36,17 @@ public interface FileBoxService {
     int deleteFileBox(int id);
 
     /**
-     * 根据标题、标签获取文档集
+     * 根据标题获取文档集映射关系
      * @param title
      * @return
      */
-    List<HashMap<String, Object>> getFileBoxByTitle(String title);
+    List<HashMap<String, Object>> getRelationListByTitle(String title);
+
+    /**
+     * 根据标题获取文档集
+     * @param title
+     * @return
+     */
+    List<FileBox> getFileBoxByTitle(String title);
+
 }

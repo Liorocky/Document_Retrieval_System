@@ -49,7 +49,7 @@
             id = #{id}
     </delete>
 
-    <select id="getFileBoxByTitle" parameterType="java.lang.String" resultType="java.util.HashMap">
+    <select id="getRelationListByTitle" parameterType="java.lang.String" resultType="java.util.HashMap">
         SELECT
             file_box_id,
             GROUP_CONCAT( tag_id ) AS tag_id
@@ -59,6 +59,15 @@
             file_box_id IN ( SELECT id FROM file_box WHERE title LIKE concat('%', #{title}, '%') )
         GROUP BY
             file_box_id
+    </select>
+
+    <select id="getFileBoxByTitle" parameterType="java.lang.String" resultMap="FileBoxResultMap">
+        SELECT
+            *
+        FROM
+            file_box
+        WHERE
+            title LIKE concat('%', #{title}, '%')
     </select>
 
 </mapper>

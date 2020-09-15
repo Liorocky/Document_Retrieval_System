@@ -20,6 +20,8 @@ public interface FileBoxDao {
 
     int deleteFileBox(int id);
 
-    List<HashMap<String, Object>> getFileBoxByTitle(String title);
+    List<HashMap<String, Object>> getRelationListByTitle(String title);
+
+    List<FileBox> getFileBoxByTitle(String title);
 
 }

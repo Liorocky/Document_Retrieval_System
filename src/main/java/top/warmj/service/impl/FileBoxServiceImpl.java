@@ -36,7 +36,12 @@ public class FileBoxServiceImpl implements FileBoxService {
     }
 
     @Override
-    public List<HashMap<String, Object>> getFileBoxByTitle(String title) {
+    public List<HashMap<String, Object>> getRelationListByTitle(String title) {
+        return fileBoxDao.getRelationListByTitle(title);
+    }
+
+    @Override
+    public List<FileBox> getFileBoxByTitle(String title) {
         return fileBoxDao.getFileBoxByTitle(title);
     }
 }
