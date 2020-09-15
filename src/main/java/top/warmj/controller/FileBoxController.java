@@ -32,7 +32,7 @@ public class FileBoxController {
      * @return
      */
     @GetMapping({"/", ""})
-    public Result<List<FileBox>> getFileBoxByIdList() {
+    public Result<List<FileBox>> getAllFileBox() {
         return new Result<>(fileBoxService.getAllFileBox());
     }
 
@@ -123,33 +123,63 @@ public class FileBoxController {
      * @param map
      * @return
      */
-    @GetMapping("/title/tags")
-    public Result<List<FileBox>> getFileBoxByTitleAndTags(@RequestBody Map<String, Object> map) {
+    @PostMapping("/title/tags")
+    public Result<List<FileBox>> getFileBoxByTitleAndTags(@RequestBody Map<Object, Object> map) {
         // 获取标题
         String title = (String) map.get("title");
-        // 将前端传入的tags转为set集合
-        Set<Integer> set1 = new HashSet<>((ArrayList<Integer>) map.get("tags"));
-        // 数据库返回tags的集合
-        Set<Integer> set2 = new HashSet<>();
+
+        // 将前端传入的tags转为set集合 注意string 和 int
+        ArrayList<String> tagsReqString = (ArrayList<String>) map.get("tags");
+        ArrayList<Integer> tagsReqInt = new ArrayList<>();
+        // 将tagsReq中的每一项转化为int类型
+        for (String s : tagsReqString) {
+            tagsReqInt.add(Integer.parseInt(s));
+        }
+        Set<Integer> tagsFromReq = new HashSet<>(tagsReqInt);
+
+        // 如果标题为空且tag为空，说明查询所有文档集
+        if (title.equals("") && tagsFromReq.isEmpty()) {
+            return getAllFileBox();
+        }
+
         // 根据标题、标签筛选之后的id列表
         List<Integer> fileBoxIdList = new LinkedList<>();
 
-        // 获取映射关系
-        List<HashMap<String, Object>> list = fileBoxService.getFileBoxByTitle(title);
+        // 根据标题获取文档集与标签的映射关系列表
+        List<HashMap<String, Object>> relationList = fileBoxService.getFileBoxByTitle(title);
+        System.out.println("relationList:" + relationList);
+
         // 遍历list 取交集 将符合条件的id放入fileBoxIdList中
-        for (HashMap<String, Object> m : list) {
-            set2.clear(); // 清空临时set
+        for (HashMap<String, Object> m : relationList) {
+            // 数据库返回tags的集合
+            Set<Integer> tagsFromDB = new HashSet<>();
+
             // 从map中获取id
+            Set<Integer> tagsFromTemp = new HashSet<>();  // 临时  交集使用
             String[] tagArr = ((String) m.get("tag_id")).split(",");
             for (int i = 0; i < tagArr.length; i++) {
-                set2.add(Integer.parseInt(tagArr[i]));
+                tagsFromDB.add(Integer.parseInt(tagArr[i]));
+                tagsFromTemp.add(Integer.parseInt(tagArr[i]));
             }
 
-            // 交集判断
-            if (!set1.retainAll(set2)) {
+            System.out.println("tagsFromDB1:" + tagsFromDB);
+            System.out.println("tagsFromTemp1:" + tagsFromTemp);
+            System.out.println("tagsFromReq1:" + tagsFromReq);
+
+            // 使用临时集合交集判断
+            // 只要交集和之前db查出来的一样，说明符合条件
+            tagsFromTemp.retainAll(tagsFromReq);
+            if (tagsFromReq.equals(tagsFromTemp)) {
                 // 符合条件 将id放入fileBoxIdList中
                 fileBoxIdList.add((Integer) m.get("file_box_id"));
             }
+
+            System.out.println("tagsFromDB2:" + tagsFromDB);
+            System.out.println("tagsFromTemp2:" + tagsFromTemp);
+            System.out.println("tagsFromReq2:" + tagsFromReq);
+
+
+            System.out.println("fileBoxIdList:" + fileBoxIdList);
         }
 
         // 返回的FileBox列表
@@ -160,6 +190,7 @@ public class FileBoxController {
             // 返回异常消息
             return new Result<>(e);
         }
+        System.out.println("fileBoxList:" + fileBoxList);
         return new Result<>(fileBoxList);
     }
 }
