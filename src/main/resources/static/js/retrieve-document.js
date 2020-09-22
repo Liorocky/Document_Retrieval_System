@@ -61,11 +61,12 @@ var layer = layui.layer;
 //监听表格行单击事件
 table.on('row(file-box-table)', function (obj) {
     // console.log(obj.tr) //得到当前行元素对象
-    // console.log(obj.data) //得到当前行数据
+    // console.log(obj.data); //得到当前行数据
 
     layer.open({
-        type: 2,
-        content: '/pages/show-file-box.html?id=' + obj.data.id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        type: 2
+        ,content: '/pages/show-file-box.html?id=' + obj.data.id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        ,area: ['1000px', '500px']
     });
 
     //obj.del(); //删除当前行

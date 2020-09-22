@@ -6,7 +6,62 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body>
-文档弹出
+
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>文档详情</legend>
+</fieldset>
+<div class="layui-fluid">
+    <div class="layui-form">
+        <div class="layui-row layui-col-space30">
+            <div class="layui-col-md6">
+                <label class="layui-form-label">文档标题</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title-input" name="title" lay-verify="required" autocomplete="off"
+                           placeholder="请输入标题" class="layui-input" disabled value="动销测试">
+                </div>
+            </div>
+            <div class="layui-col-md2 layui-col-md-offset2">
+                <button type="button" class="layui-btn layui-btn-normal" id="choose-btn">
+                    <i class="layui-icon layui-icon-file"></i>修改文档
+                </button>
+            </div>
+
+            <div class="layui-col-md2">
+                <button lay-submit type="button" class="layui-btn" id="upload-btn" onclick="checkFileBox();">
+                    <i class="layui-icon layui-icon-upload"></i>下载全部
+                </button>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">文档描述</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="desc-input" name="title" lay-verify="required" autocomplete="off"
+                               placeholder="请输入标题" class="layui-input" disabled value="动销测试">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row layui-col-space5">
+        <div class="layui-col-md12">
+            <form class="layui-form" id="tag-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">标签</label>
+                    <div class="layui-input-block" id="tag-block">
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table id="file-box-list" lay-filter="file-box-list"></table>
+
 
 <script src="/js/jquery-1.12.4.min.js"></script>
 <script src="/layui/layui.all.js"></script>

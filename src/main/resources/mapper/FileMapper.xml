@@ -4,8 +4,8 @@
 <mapper namespace="top.warmj.dao.FileDao">
 
     <resultMap type="File" id="FileResultMap">
-        <id column="file_box_id" property="fileBoxId" javaType="long" jdbcType="INTEGER"/>
-        <result column="number_order" property="numberOrder" javaType="long" jdbcType="INTEGER"/>
+        <id column="file_box_id" property="fileBoxId" javaType="int" jdbcType="INTEGER"/>
+        <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
         <result column="file_name" property="fileName" javaType="String" jdbcType="VARCHAR"/>
         <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
         <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>

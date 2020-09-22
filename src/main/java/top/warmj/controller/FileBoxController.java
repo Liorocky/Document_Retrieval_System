@@ -169,7 +169,6 @@ public class FileBoxController {
                 tagsFromDB.add(Integer.parseInt(s));
             }
 
-            // 使用临时集合交集判断
             // 只要交集和之前db查出来的一样，说明符合条件
             tagsFromDB.retainAll(tagsFromReq);
             if (tagsFromReq.equals(tagsFromDB)) {

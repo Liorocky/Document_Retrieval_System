@@ -115,19 +115,21 @@ public class FileController {
             int winSep = filename.lastIndexOf('\\');
             //cut off at latest possible point
             int pos = (Math.max(winSep, unixSep));
-            if (pos != -1)
+            if (pos != -1) {
                 filename = filename.substring(pos + 1);
+            }
+            // 路径
             pathString = "D:/upload/" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + filename;//上传到本地
         }
         try {
             assert pathString != null;
-            java.io.File files = new java.io.File(pathString);//在内存中创建File文件映射对象
+            java.io.File files = new java.io.File(pathString); // 在内存中创建File文件映射对象
             //打印查看上传路径
             System.out.println(pathString);
-            if (!files.getParentFile().exists()) {//判断映射文件的父文件是否真实存在
-                files.getParentFile().mkdirs();//创建所有父文件夹
+            if (!files.getParentFile().exists()) { // 判断映射文件的父文件是否真实存在
+                files.getParentFile().mkdirs(); // 创建所有父文件夹
             }
-            file.transferTo(files);//采用file.transferTo 来保存上传的文件
+            file.transferTo(files); // 采用file.transferTo 来保存上传的文件
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
