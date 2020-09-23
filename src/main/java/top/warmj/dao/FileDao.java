@@ -20,4 +20,5 @@ public interface FileDao {
 
     int deleteFile(int id);
 
+    List<File> getFilesByIdList(List<Integer> idList);
 }

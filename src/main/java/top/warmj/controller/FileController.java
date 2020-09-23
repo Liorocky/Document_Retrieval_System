@@ -8,6 +8,9 @@ import top.warmj.pojo.File;
 import top.warmj.pojo.Result;
 import top.warmj.service.FileService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -99,6 +102,12 @@ public class FileController {
         }
     }
 
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @return
+     */
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
         System.out.println(file);
@@ -135,5 +144,66 @@ public class FileController {
             e.printStackTrace();
         }
         return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
+    }
+
+    /**
+     * 下载某个文件
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/download/{id}")
+    @CrossOrigin // 跨域访问
+    public Result<String> downloadFileById(@PathVariable int id, HttpServletResponse response) {
+        List<Integer> idList = new LinkedList<>();
+        idList.add(id);
+
+        List<File> filesResultList = fileService.getFilesByIdList(idList);
+
+        if (filesResultList.isEmpty()) {
+            return new Result<>(new FileNotFoundException("文件未找到"));
+        }
+
+        String url = filesResultList.get(0).getPath();
+        String name = filesResultList.get(0).getFileName();
+        String type = filesResultList.get(0).getType();
+
+        // 检测文件是否存在
+        java.io.File file = new java.io.File(url);
+        if (!file.exists()) {
+            return new Result<>(new FileNotFoundException("文件未找到"));
+        }
+
+        //接下来是构造头部包括名称和编码的操作
+        response.reset();
+        try {
+            //使用注释掉的方法时中文名称会变为下划线，故要采用UTF8的编码方式
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(name + "." + type, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            return new Result<>(e);
+        }
+
+        response.setHeader("Access-Control-Allow-Origin", "*"); //跨越请求
+        response.setContentType("application/force-download"); //下载
+        response.setContentType("multipart/form-data");
+
+        try {
+            //接下来时构造下载流的常规操作，我也不懂，就照着写吧hhhh
+            InputStream inStream = new FileInputStream(url);
+            OutputStream os = response.getOutputStream();
+            byte[] buff = new byte[1024];
+            int len = -1;
+            while ((len = inStream.read(buff)) > 0) {
+                os.write(buff, 0, len);
+            }
+            os.flush();
+            os.close();
+            inStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<>(new FileNotFoundException("文件未找到"));
+        }
+
+        return null;
     }
 }

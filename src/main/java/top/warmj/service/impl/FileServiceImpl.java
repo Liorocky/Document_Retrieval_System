@@ -39,4 +39,9 @@ public class FileServiceImpl implements FileService {
     public int deleteFile(int id) {
         return fileDao.deleteFile(id);
     }
+
+    @Override
+    public List<File> getFilesByIdList(List<Integer> idList) {
+        return fileDao.getFilesByIdList(idList);
+    }
 }

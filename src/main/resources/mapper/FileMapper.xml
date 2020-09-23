@@ -50,4 +50,15 @@
         WHERE
             id = #{id}
     </delete>
+
+    <select id="getFilesByIdList" resultMap="FileResultMap">
+        SELECT
+        *
+        FROM
+        file
+        WHERE id IN
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

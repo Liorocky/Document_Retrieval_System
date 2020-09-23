@@ -38,4 +38,11 @@ public interface FileService {
      * @return
      */
     int deleteFile(int id);
+
+    /**
+     * 通过idList获取部分文件
+     * @param idList
+     * @return
+     */
+    List<File> getFilesByIdList(List<Integer> idList);
 }
