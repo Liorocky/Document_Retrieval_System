@@ -144,7 +144,6 @@ public class FileController {
             assert filePath != null;
             java.io.File files = new java.io.File(filePath); // 在内存中创建File文件映射对象
             //打印查看上传路径
-            System.out.println(filePath);
             if (!files.getParentFile().exists()) { // 判断映射文件的父文件是否真实存在
                 files.getParentFile().mkdirs(); // 创建所有父文件夹
             }
@@ -153,9 +152,6 @@ public class FileController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
-
         return new Result<>(map);
     }
 
@@ -231,10 +227,8 @@ public class FileController {
     public Result<String> downloadZipFileByFileBoxId(@PathVariable int id, HttpServletResponse response) throws Exception {
         List<File> filesResultList = fileService.getFiles(id);
         List<java.io.File> filesList = new LinkedList<>();
-        System.out.println(filesResultList);
 
         for (File f : filesResultList) {
-            System.out.println(f.getPath());
             java.io.File file = new java.io.File(f.getPath());
             filesList.add(file);
         }

@@ -26,9 +26,9 @@ var $ = layui.jquery
 var uploadListView = $('#upload-list')
     , uploadListIns = upload.render({
     elem: '#choose-btn' // 选择文件按钮
-    , url: '/file/upload'
+    , url: '/file/upload' // 上传文件接口
     , accept: 'file'
-    , exts: 'txt|rar|zip|doc|docx|pdf|xls|xlsx' //允许上传的文件类型
+    , exts: '' //允许上传的文件类型
     , multiple: true // 是否允许多文件上传。
     , auto: false
     , bindAction: '#upload-btn' // 确认录入按钮
@@ -36,10 +36,8 @@ var uploadListView = $('#upload-list')
         this.files = obj.pushFile(); // 将每次选择的文件追加到文件队列
         //读取本地文件
         obj.preview(function (index, file, result) {
-            fileOrder = parseInt(index.split('-')[1]) + 1;
-
             var tr = $(['<tr id="upload-' + index + '">'
-                , '<td>' + fileOrder + '</td>'
+                , '<td>' + index + '</td>'
                 , '<td>' + file.name + '</td>'
                 , '<td>' + (file.size / 1024).toFixed(1) + 'kb</td>'
                 , '<td>等待上传</td>'
@@ -58,31 +56,29 @@ var uploadListView = $('#upload-list')
             tr.find('.demo-delete').on('click', function () {
                 delete files[index]; //删除对应的文件
                 tr.remove();
+                changeFileOrder();
                 uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
             });
 
             uploadListView.append(tr);
+            changeFileOrder(); // 更改文件序号
         });
     }
     , before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
-        console.log("正在上传");
+        // console.log("正在上传");
     }
     , done: function (res, index, upload) {
-        console.log("上传成功");
-        console.log(res);
-
+        console.log(index);
         // 文件上传成功
         if (res.code === 0) {
-            fileOrder = parseInt(index.split('-')[1]) + 1;
-
             //获取文件名，不带后缀
             var fileName = res.data.fileUrl.replace(/(.*\/)*([^.]+).*/ig,"$2");
 
             //获取文件后缀
             var type = res.data.fileUrl.replace(/.+\./,"");
 
-            filesUpload.push({"fileName": fileName, "numberOrder": fileOrder, "path": res.data.fileUrl, "type": type});
-            files.push({"fileUrl": res.data.fileUrl, "fileSize": res.fileSize});//,"fileUrl":res.fileUrl
+            filesUpload.push({"fileName": fileName, "numberOrder": 0, "path": res.data.fileUrl, "type": type});
+            files.push({"fileUrl": res.data.fileUrl, "fileSize": res.fileSize}); // "fileUrl":res.fileUrl
             var json = JSON.stringify(files);
             //将上传的文件信息加入到集合中并转换成json字符串
             $("#fileJson").attr("value", json);
@@ -100,9 +96,9 @@ var uploadListView = $('#upload-list')
     }
     , allDone: function (obj) { //当文件全部被提交后，才触发
         console.log("所有文件上传成功");
-        console.log(obj.total); //得到总文件数
-        console.log(obj.successful); //请求成功的文件数
-        console.log(obj.aborted); //请求失败的文件数
+        console.log("总文件数" + obj.total); //得到总文件数
+        console.log("请求成功的文件数" + obj.successful); //请求成功的文件数
+        console.log("请求失败的文件数" + (obj.aborted)); //请求失败的文件数
         uploadFileBox(); // 所有文件上传之后，录入fileBox
     }
     , error: function (index, upload) {
@@ -122,6 +118,11 @@ function uploadFileBox() {
 
     fileBoxTitle = $('#title-input')[0].value;
     fileBoxDesc = $('#desc-input')[0].value;
+
+    // 修改文件序号
+    for (var i = 0; i < filesUpload.length; i++) {
+        filesUpload[i].numberOrder = i + 1;
+    }
 
 // 上传fileBox
     $.ajax({
@@ -211,7 +212,7 @@ form.on('select(tag-search)', function (data) {
 
 // 录入前检查 文件
 function checkFileBox() {
-    fileBoxCount = fileOrder; // 文件数量
+    fileBoxCount = document.getElementById("upload-list").rows.length; // 文件数量
 
     // 检查是否有文件
     if (fileBoxCount === 0) {
@@ -219,4 +220,13 @@ function checkFileBox() {
         return false;
     }
     return true;
+}
+
+// 更改文件序号
+function changeFileOrder() {
+    var count = document.getElementById("upload-list").rows.length;
+    console.log("count = " + count);
+    for (var i = 0; i < count; i++) {
+        $("#upload-list > tbody > tr:eq(" + i + ")>td:eq(0)").html(i + 1);
+    }
 }
