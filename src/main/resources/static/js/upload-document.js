@@ -4,6 +4,7 @@ const tag_display_number = 7; // 默认显示几个标签
 var fileBoxTitle; // 文档集标题
 var fileBoxDesc; // 文档集描述
 var fileBoxCount; // 文档数量
+var fileBoxPath; // 文档集路径
 
 var fileName; // 文件名
 var filePath; // 文件路径
@@ -19,7 +20,7 @@ var tags_selected = new Set(); // 已选择的标签
 
 var form = layui.form; // 表单数据
 
-// 选择和上传每个文件
+// 选择和上传每个文件 （点击确认录入按钮）
 var $ = layui.jquery
     , upload = layui.upload;
 var uploadListView = $('#upload-list')
@@ -68,24 +69,26 @@ var uploadListView = $('#upload-list')
     }
     , done: function (res, index, upload) {
         console.log("上传成功");
+        console.log(res);
 
         // 文件上传成功
         if (res.code === 0) {
             fileOrder = parseInt(index.split('-')[1]) + 1;
 
             //获取文件名，不带后缀
-            var fileName = res.fileUrl.replace(/(.*\/)*([^.]+).*/ig,"$2");
+            var fileName = res.data.fileUrl.replace(/(.*\/)*([^.]+).*/ig,"$2");
 
             //获取文件后缀
-            var type = res.fileUrl.replace(/.+\./,"");
+            var type = res.data.fileUrl.replace(/.+\./,"");
 
-            filesUpload.push({"fileName": fileName, "numberOrder": fileOrder, "path": res.fileUrl, "type": type});
-            files.push({"fileUrl": res.fileUrl, "fileSize": res.fileSize});//,"fileUrl":res.fileUrl
+            filesUpload.push({"fileName": fileName, "numberOrder": fileOrder, "path": res.data.fileUrl, "type": type});
+            files.push({"fileUrl": res.data.fileUrl, "fileSize": res.fileSize});//,"fileUrl":res.fileUrl
             var json = JSON.stringify(files);
             //将上传的文件信息加入到集合中并转换成json字符串
             $("#fileJson").attr("value", json);
 
-            var fileUrl = res.fileUrl;
+            var fileUrl = res.data.fileUrl;
+            fileBoxPath = res.data.fileBoxPath;
             var tr = uploadListView.find('tr#upload-' + index)
                 , tds = tr.children();
             tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
@@ -124,7 +127,7 @@ function uploadFileBox() {
     $.ajax({
         url: "/fileBox/",
         type: 'POST', //请求方法，GET、POST、PUT、DELETE在这里设置
-        timeout: 5000,    //超时时间
+        timeout: 5000, //超时时间
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify({
@@ -215,9 +218,5 @@ function checkFileBox() {
         layer.msg('没有选择文件', {icon: 5, anim: 6});
         return false;
     }
-
-    // 检查文件是否上传成功
-
-
     return true;
 }

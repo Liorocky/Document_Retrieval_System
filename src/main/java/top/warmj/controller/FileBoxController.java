@@ -11,6 +11,7 @@ import top.warmj.service.FileBoxService;
 import top.warmj.service.FileService;
 import top.warmj.service.RelationService;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -25,6 +26,8 @@ public class FileBoxController {
 
     @Autowired
     FileService fileService;
+
+    private static final String FILEPATH = "D:/upload/"; // 存储路径
 
     /**
      * 获取所有文档集
@@ -66,14 +69,16 @@ public class FileBoxController {
      *            numberOrder 文件序号
      *            path 路径
      *            type 类型
-     *            <p>
+     *
      *            fileBoxId 文档集id 自增id
      */
     @PostMapping({"/", ""})
     public Result<String> postFileBox(@RequestBody Map<String, Object> map) {
         // 创建fileBox
         FileBox fileBox = new FileBox();
-        fileBox.setTitle((String) map.get("title"));
+        String title = (String) map.get("title");
+
+        fileBox.setTitle(title);
         fileBox.setDesc((String) map.get("desc"));
         fileBox.setCount((Integer) map.get("count"));
         int fileBoxId = fileBoxService.postFileBox(fileBox); // 获得自增id
@@ -88,7 +93,6 @@ public class FileBoxController {
         ArrayList<HashMap<String, Object>> files = (ArrayList<HashMap<String, Object>>) map.get("files");
         File file = new File();
 
-
         for (HashMap<String, Object> m : files) {
 
             file.setFileBoxId(fileBoxId);
@@ -100,7 +104,7 @@ public class FileBoxController {
             fileService.postFile(file);
         }
 
-        return new Result<>("as");
+        return new Result<>("success");
     }
 
     /**

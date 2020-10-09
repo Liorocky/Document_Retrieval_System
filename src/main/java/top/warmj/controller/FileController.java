@@ -7,20 +7,21 @@ import org.springframework.web.multipart.MultipartFile;
 import top.warmj.pojo.File;
 import top.warmj.pojo.Result;
 import top.warmj.service.FileService;
+import top.warmj.utils.ZipUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/file")
 public class FileController {
     @Autowired
     FileService fileService;
+
+    private static final String FILEPATH = "D:/upload/"; // 存储路径
 
     /**
      * 根据id获取文件
@@ -109,9 +110,10 @@ public class FileController {
      * @return
      */
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        System.out.println(file);
-        String pathString = null;
+    public Result<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
+        String filePath = null;
+        Map<String, Object> map = new HashMap<>();
+
         if (file != null) {
             //获取上传的文件名称
             String filename = file.getOriginalFilename();
@@ -127,14 +129,22 @@ public class FileController {
             if (pos != -1) {
                 filename = filename.substring(pos + 1);
             }
-            // 路径
-            pathString = "D:/upload/" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + filename;//上传到本地
+
+            // 文件夹
+            String date = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            java.io.File dirFile = new java.io.File(date);
+
+            // 文件路径
+            filePath = FILEPATH + dirFile + "/" + date + "_" + filename; //上传到本地
+
+            map.put("fileUrl", filePath);
+            map.put("fileBoxPath", FILEPATH + date);
         }
         try {
-            assert pathString != null;
-            java.io.File files = new java.io.File(pathString); // 在内存中创建File文件映射对象
+            assert filePath != null;
+            java.io.File files = new java.io.File(filePath); // 在内存中创建File文件映射对象
             //打印查看上传路径
-            System.out.println(pathString);
+            System.out.println(filePath);
             if (!files.getParentFile().exists()) { // 判断映射文件的父文件是否真实存在
                 files.getParentFile().mkdirs(); // 创建所有父文件夹
             }
@@ -143,7 +153,10 @@ public class FileController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return "{\"code\":0, \"msg\":\"success\", \"fileUrl\":\"" + pathString + "\"}";
+
+
+
+        return new Result<>(map);
     }
 
     /**
@@ -177,7 +190,7 @@ public class FileController {
         //接下来是构造头部包括名称和编码的操作
         response.reset();
         try {
-            //使用注释掉的方法时中文名称会变为下划线，故要采用UTF8的编码方式
+            //采用UTF8的编码方式
             response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(name + "." + type, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             return new Result<>(e);
@@ -188,7 +201,7 @@ public class FileController {
         response.setContentType("multipart/form-data");
 
         try {
-            //接下来时构造下载流的常规操作，我也不懂，就照着写吧hhhh
+            //构造下载流
             InputStream inStream = new FileInputStream(url);
             OutputStream os = response.getOutputStream();
             byte[] buff = new byte[1024];
@@ -204,6 +217,65 @@ public class FileController {
             return new Result<>(new FileNotFoundException("文件未找到"));
         }
 
+        return null;
+    }
+
+    /**
+     * 打包下载所有文件
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/download/FileBox/{id}")
+    @CrossOrigin // 跨域访问
+    public Result<String> downloadZipFileByFileBoxId(@PathVariable int id, HttpServletResponse response) throws Exception {
+        List<File> filesResultList = fileService.getFiles(id);
+        List<java.io.File> filesList = new LinkedList<>();
+        System.out.println(filesResultList);
+
+        for (File f : filesResultList) {
+            System.out.println(f.getPath());
+            java.io.File file = new java.io.File(f.getPath());
+            filesList.add(file);
+        }
+
+        java.io.File zipFile = new java.io.File(FILEPATH + "template.zip");
+        FileOutputStream fos1 = new FileOutputStream(zipFile);
+
+        ZipUtils.toZip(filesList, fos1);
+
+        //接下来是构造头部包括名称和编码的操作
+        response.reset();
+        try {
+            //采用UTF8的编码方式
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("fileBox_" + id + ".zip", "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            return new Result<>(e);
+        }
+
+        response.setHeader("Access-Control-Allow-Origin", "*"); //跨越请求
+        response.setContentType("application/force-download"); //下载
+        response.setContentType("multipart/form-data");
+
+        try {
+            //构造下载流
+            InputStream inStream = new FileInputStream(zipFile);
+            OutputStream os = response.getOutputStream();
+            byte[] buff = new byte[1024];
+            int len = -1;
+            while ((len = inStream.read(buff)) > 0) {
+                os.write(buff, 0, len);
+            }
+            os.flush();
+            os.close();
+            inStream.close();
+            zipFile.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<>(new FileNotFoundException("文件未找到"));
+        }
+
+        fos1.close();
         return null;
     }
 }
