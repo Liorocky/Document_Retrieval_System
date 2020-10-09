@@ -212,7 +212,7 @@ form.on('select(tag-search)', function (data) {
 
 // 录入前检查 文件
 function checkFileBox() {
-    fileBoxCount = document.getElementById("upload-list").rows.length; // 文件数量
+    fileBoxCount = document.getElementById("upload-list").rows.length - 1; // 文件数量
 
     // 检查是否有文件
     if (fileBoxCount === 0) {
