@@ -1,6 +1,7 @@
 package top.warmj.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Result<T> implements Serializable {
     private static final int serialVersionUID = 1;
@@ -16,6 +17,16 @@ public class Result<T> implements Serializable {
     private int code = SUCCESS;
 
     private T data;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    private int count;
 
     public String getMsg() {
         return msg;
@@ -48,6 +59,15 @@ public class Result<T> implements Serializable {
     public Result(T data) {
         super();
         this.data = data;
+        if (data instanceof List) {
+            this.count = ((List) data).size();
+        }
+    }
+
+    public Result(T data, int count) {
+        super();
+        this.data = data;
+        this.count = count;
     }
 
     public Result(Throwable e) {

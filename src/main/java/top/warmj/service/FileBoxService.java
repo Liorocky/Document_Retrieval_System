@@ -19,13 +19,22 @@ public interface FileBoxService {
      * 获取文档集 分页
      * @return
      */
-    List<FileBox> getAllFileBoxParameter(int page, int limit);
+    List<FileBox> getAllFileBoxLimit(int page, int limit);
 
     /**
      * 通过idList获取文档集
      * @return
      */
     List<FileBox> getFileBoxByIdList(List<Integer> idList);
+
+    /**
+     * 通过idList获取文档集 分页
+     * @param idList
+     * @param page  第几页
+     * @param limit 每页最多数据
+     * @return
+     */
+    List<FileBox> getFileBoxByIdListLimit(List<Integer> idList, int page, int limit);
 
     /**
      * 创建文档集

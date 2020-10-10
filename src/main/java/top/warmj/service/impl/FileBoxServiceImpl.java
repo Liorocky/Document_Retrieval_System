@@ -20,13 +20,18 @@ public class FileBoxServiceImpl implements FileBoxService {
     }
 
     @Override
-    public List<FileBox> getAllFileBoxParameter(int page, int limit) {
-        return fileBoxDao.getAllFileBoxParameter(page, limit);
+    public List<FileBox> getAllFileBoxLimit(int page, int limit) {
+        return fileBoxDao.getAllFileBoxLimit(page, limit);
     }
 
     @Override
     public List<FileBox> getFileBoxByIdList(List<Integer> idList) {
         return fileBoxDao.getFileBoxByIdList(idList);
+    }
+
+    @Override
+    public List<FileBox> getFileBoxByIdListLimit(List<Integer> idList, int page, int limit) {
+        return fileBoxDao.getFileBoxByIdListLimit(idList, page, limit);
     }
 
     @Override

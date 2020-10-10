@@ -10,6 +10,7 @@ import top.warmj.pojo.Result;
 import top.warmj.service.FileBoxService;
 import top.warmj.service.FileService;
 import top.warmj.service.RelationService;
+import top.warmj.utils.FileBoxUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -41,36 +42,15 @@ public class FileBoxController {
 
     /**
      * 获取所有文档集
-     * 加上分页参数、order字段
+     * 加上分页参数
      *
      * @return
      */
     @GetMapping({"/parameter"})
-    public Map<String, Object> getAllFileBoxParameter(@RequestParam int page, @RequestParam int limit) {
-        List<Map<String, Object>> data = new LinkedList<>(); // 返回结果集
-        List<FileBox> list = fileBoxService.getAllFileBoxParameter((page - 1) * limit, limit);
-        List<FileBox> listCount = fileBoxService.getAllFileBox();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 时间格式化
-
-        Map<String, Object> resultMap = new HashMap<>();
-
-        for (int i = 0; i < list.size(); i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("order", i + 1);
-            map.put("id", list.get(i).getId());
-            map.put("title", list.get(i).getTitle());
-            map.put("desc", list.get(i).getDesc());
-            map.put("count", list.get(i).getCount());
-            map.put("addTime", sdf.format(list.get(i).getAddTime()));
-            map.put("lastTime", sdf.format(list.get(i).getLastTime()));
-            data.add(map);
-        }
-
-        resultMap.put("code", 0);
-        resultMap.put("msg", "SUCCESS");
-        resultMap.put("data", data);
-        resultMap.put("count", listCount.size());
-        return resultMap;
+    public Result<List<FileBox>> getAllFileBoxLimit(@RequestParam int page, @RequestParam int limit) {
+        List<FileBox> list = fileBoxService.getAllFileBoxLimit((page - 1) * limit, limit);
+        int count = fileBoxService.getAllFileBox().size();
+        return new Result<>(list, count);
     }
 
     /**
@@ -163,6 +143,14 @@ public class FileBoxController {
      */
     @PostMapping("/title/tags")
     public Result<List<FileBox>> getFileBoxByTitleAndTags(@RequestBody Map<Object, Object> map) {
+        // 获取分页数据
+        int page = (int) map.get("page");
+        int limit = (int) map.get("limit");
+
+        if (!map.containsKey("title") && !map.containsKey("key")) {
+            return getAllFileBoxLimit(page, limit);
+        }
+
         // 获取标题
         String title = (String) map.get("title");
 
@@ -171,7 +159,7 @@ public class FileBoxController {
 
         // 如果标题为空且tag为空，说明查询所有文档集
         if (title.equals("") && tagsReqObject.isEmpty()) {
-            return getAllFileBox();
+            return getAllFileBoxLimit(page, limit);
         }
 
         // 如果标题不为空 但 tag为空 直接调接口
@@ -220,7 +208,11 @@ public class FileBoxController {
         if (fileBoxIdList.isEmpty()) {
             return new Result<>(new NotFoundException("没有数据"));
         }
+
         fileBoxList = fileBoxService.getFileBoxByIdList(fileBoxIdList);
-        return new Result<>(fileBoxList);
+        int count = fileBoxList.size();
+        fileBoxList = new FileBoxUtils().subList(fileBoxList, page, limit);
+
+        return new Result<>(fileBoxList, count);
     }
 }

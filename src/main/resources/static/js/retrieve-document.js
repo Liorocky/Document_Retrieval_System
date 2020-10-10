@@ -13,7 +13,7 @@ table.render({
     , page: 'true'
     , limit: 10
     , cols: [[
-        {field: 'order', title: '序号', sort: true, width: 80, unresize: 'false', align: 'center'}
+        {field: 'order', title: '序号', sort: true, width: 80, unresize: 'false', align: 'center', type: 'numbers'}
         , {field: 'title', title: '标题', width: 450, align: 'center'}
         , {field: 'desc', title: '描述', width: 200, align: 'center'}
         , {field: 'count', title: '文件数量', width: 90, align: 'center'}
@@ -52,13 +52,13 @@ function searchFileBox() {
     // 根据条件筛选返回的数据重载表格
     table.reload('file-box-table', {
         url: '/fileBox/title/tags'
-        ,method: "POST"
-        ,contentType: 'application/json'
-        ,where: {
-                    "title": title,
-                    "tags": Array.from(tags_selected)
-                } //设定异步数据接口的额外参数
-        ,done: function(res, curr, count){
+        , method: "POST"
+        , contentType: 'application/json'
+        , where: {
+            "title": title,
+            "tags": Array.from(tags_selected)
+        } //设定异步数据接口的额外参数
+        , done: function (res, curr, count) {
             this.where = {};
         }
     });
@@ -69,17 +69,11 @@ var layer = layui.layer;
 
 //监听表格行单击事件
 table.on('row(file-box-table)', function (obj) {
-    // console.log(obj.tr) //得到当前行元素对象
-    // console.log(obj.data); //得到当前行数据
-
     layer.open({
         type: 2
-        ,content: '/pages/show-file-box.html?id=' + obj.data.id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-        ,area: ['1000px', '500px']
+        , content: '/pages/show-file-box.html?id=' + obj.data.id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        , area: ['1000px', '500px']
     });
-
-    //obj.del(); //删除当前行
-    //obj.update(fields) //修改当前行数据
 });
 
 // 左侧显示标签
@@ -152,7 +146,7 @@ form.on('select(tag-search)', function (data) {
 });
 
 // 监听标签复选框点击
-form.on('checkbox(tag_selected)', function(data){
+form.on('checkbox(tag_selected)', function (data) {
     if (data.elem.checked) {
         tags_selected.add(data.value);
     } else {

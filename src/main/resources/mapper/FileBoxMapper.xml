@@ -25,7 +25,7 @@
             file_box
     </select>
 
-    <select id="getAllFileBoxParameter" resultMap="FileBoxResultMap">
+    <select id="getAllFileBoxLimit" resultMap="FileBoxResultMap">
         SELECT
             *
         FROM
@@ -42,6 +42,18 @@
         <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
             #{id}
         </foreach>
+    </select>
+
+    <select id="getFileBoxByIdListLimit" resultMap="FileBoxResultMap">
+        SELECT
+        *
+        FROM
+        file_box
+        WHERE id IN
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        LIMIT #{page}, #{limit}
     </select>
 
     <insert id="postFileBox" useGeneratedKeys="true" keyProperty="id">
