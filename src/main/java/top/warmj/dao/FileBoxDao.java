@@ -14,6 +14,12 @@ public interface FileBoxDao {
 
     List<FileBox> getAllFileBox();
 
+    /**
+     * 获取文档集 分页
+     * @return
+     */
+    List<FileBox> getAllFileBoxParameter(int page, int limit);
+
     List<FileBox> getFileBoxByIdList(List<Integer> idList);
 
     int postFileBox(FileBox fileBox);

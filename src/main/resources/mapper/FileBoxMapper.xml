@@ -25,6 +25,14 @@
             file_box
     </select>
 
+    <select id="getAllFileBoxParameter" resultMap="FileBoxResultMap">
+        SELECT
+            *
+        FROM
+            file_box
+        LIMIT #{page}, #{limit}
+    </select>
+
     <select id="getFileBoxByIdList" resultMap="FileBoxResultMap">
         SELECT
             *

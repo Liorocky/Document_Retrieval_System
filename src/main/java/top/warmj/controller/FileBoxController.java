@@ -40,6 +40,40 @@ public class FileBoxController {
     }
 
     /**
+     * 获取所有文档集
+     * 加上分页参数、order字段
+     *
+     * @return
+     */
+    @GetMapping({"/parameter"})
+    public Map<String, Object> getAllFileBoxParameter(@RequestParam int page, @RequestParam int limit) {
+        List<Map<String, Object>> data = new LinkedList<>(); // 返回结果集
+        List<FileBox> list = fileBoxService.getAllFileBoxParameter((page - 1) * limit, limit);
+        List<FileBox> listCount = fileBoxService.getAllFileBox();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 时间格式化
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("order", i + 1);
+            map.put("id", list.get(i).getId());
+            map.put("title", list.get(i).getTitle());
+            map.put("desc", list.get(i).getDesc());
+            map.put("count", list.get(i).getCount());
+            map.put("addTime", sdf.format(list.get(i).getAddTime()));
+            map.put("lastTime", sdf.format(list.get(i).getLastTime()));
+            data.add(map);
+        }
+
+        resultMap.put("code", 0);
+        resultMap.put("msg", "SUCCESS");
+        resultMap.put("data", data);
+        resultMap.put("count", listCount.size());
+        return resultMap;
+    }
+
+    /**
      * 通过idList获取文档集
      * @return
      */

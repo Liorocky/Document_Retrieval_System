@@ -9,25 +9,34 @@ var table = layui.table;
 // 初始化加载表格
 table.render({
     elem: '#file-box-table'
-    , url: '/fileBox/'
-    , cellMinWidth: 80
+    , url: '/fileBox/parameter'
+    , page: 'true'
+    , limit: 10
     , cols: [[
-        {field: 'id', title: '序号', sort: true}
-        , {field: 'title', title: '标题'}
-        , {field: 'desc', title: '描述', sort: true}
-        , {field: 'count', title: '文件数量'}
-        , {field: 'addTime', title: '添加时间', sort: true}
-        , {field: 'lastTime', title: '修改时间', sort: true}
+        {field: 'order', title: '序号', sort: true, width: 80, unresize: 'false', align: 'center'}
+        , {field: 'title', title: '标题', width: 450, align: 'center'}
+        , {field: 'desc', title: '描述', width: 200, align: 'center'}
+        , {field: 'count', title: '文件数量', width: 90, align: 'center'}
+        , {field: 'addTime', title: '添加时间', sort: true, align: 'center'}
     ]]
     , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
         return {
             "code": 0, //解析接口状态
             "msg": res.message, //解析提示文本
-            // "count": 1, //解析数据长度
+            "count": res.count, //解析数据长度
             "data": res.data //解析数据列表
         };
     }
 });
+
+// 更改文件序号
+function changeFileOrder() {
+    var count = document.getElementById("upload-list").rows.length;
+    console.log("count = " + count);
+    for (var i = 0; i < count; i++) {
+        $("#upload-list > tbody > tr:eq(" + i + ")>td:eq(0)").html(i + 1);
+    }
+}
 
 // 搜索框回车事件
 $('#title-search').on('keydown', function (event) {

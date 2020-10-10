@@ -16,6 +16,12 @@ public interface FileBoxService {
     List<FileBox> getAllFileBox();
 
     /**
+     * 获取文档集 分页
+     * @return
+     */
+    List<FileBox> getAllFileBoxParameter(int page, int limit);
+
+    /**
      * 通过idList获取文档集
      * @return
      */
