@@ -10,6 +10,8 @@ $.ajax({
     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
     success: function (data, textStatus, jqXHR) {    //成功的回调函数
         console.log(data);
+
+        // 填充表格
         table.render({
             elem: '#file-box-list'
             ,initSort: {field: 'numberOrder', type: 'asc'}
@@ -21,12 +23,17 @@ $.ajax({
             ]]
             ,data: data.data
         });
-
     },
     error: function (xhr, textStatus) { //失败的回调函数
         // $("#result").html(textStatus)
     }
 });
+
+// 设置文档集的标题、描述
+var title = $("#selectedTitle", window.parent.document)[0].innerHTML;
+var desc = $("#selectedDesc", window.parent.document)[0].innerHTML;
+$("#title-input").val(title);
+$("#desc-input").val(desc);
 
 // 打包下载文件
 function downloadFileBox() {

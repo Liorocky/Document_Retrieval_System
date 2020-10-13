@@ -69,6 +69,9 @@ var layer = layui.layer;
 
 //监听表格行单击事件
 table.on('row(file-box-table)', function (obj) {
+    $('#selectedTitle').html(obj.data.title);
+    $('#selectedDesc').html(obj.data.desc);
+
     layer.open({
         type: 2
         , content: '/pages/show-file-box.html?id=' + obj.data.id //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
