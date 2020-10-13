@@ -195,19 +195,7 @@ $.ajax({
 
 // 将选中的tag放到左边待选标签中
 form.on('select(tag-search)', function (data) {
-    if (data.value === "") return; // 忽略空值
-    var tag_id = data.value; // 得到被选中标签的id
-    var tag_name = tags_data.get(parseInt(tag_id)); // 得到被选中的标签名
-    var $input = $("<input type='checkbox' checked lay-filter='tag_selected' value=" + tag_id + " title=" + tag_name + ">");
-    $('#tag-block').append($input);
-
-    // 从select列表中移除已选中的tag
-    $('option').remove("[value=" + tag_id + "]");
-
-    // 将id添加到set集合中
-    tags_selected.add(tag_id);
-
-    form.render();
+    appendTagsSelect(tags_data.get(parseInt(data.value)), data.value);
 });
 
 // 录入前检查 文件
@@ -229,4 +217,57 @@ function changeFileOrder() {
     for (var i = 0; i < count; i++) {
         $("#upload-list > tbody > tr:eq(" + i + ")>td:eq(0)").html(i + 1);
     }
+}
+
+// 新建标签
+function createTag() {
+    var newTagName = $("input:last").val();
+    var newTagId = 0;
+    var isDuplicate = false;
+
+    tags_data.forEach(function(value, key) {
+        // 重复标签
+        if (newTagName === value) {
+            layer.msg('已存在此标签，请直接选择', {icon: 2});
+            isDuplicate = true;
+        }
+    });
+
+    if (!isDuplicate) {
+        // 新建标签
+        $.ajax({
+            url: "/tag/",
+            type: 'POST', //请求方法，GET、POST、PUT、DELETE在这里设置
+            timeout: 5000, //超时时间
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "name": newTagName,
+            }),
+            success: function (data, textStatus, jqXHR) {
+                layer.msg(newTagName + ' 标签新建成功', {icon: 1});
+                newTagId = data.data.id + '';
+                // 添加到左侧待选标签中
+                appendTagsSelect(newTagName, newTagId);
+            },
+            error: function (xhr, textStatus) {
+                console.log(textStatus);
+            }
+        });
+    }
+}
+
+// 添加到左侧待选标签中
+function appendTagsSelect(tagName, tagId) {
+    if (tagName === "") return; // 忽略空值
+    var $input = $("<input type='checkbox' checked lay-filter='tag_selected' value=" + tagId + " title=" + tagName + ">");
+    $('#tag-block').append($input);
+
+    // 从select列表中移除已选中的tag
+    $('option').remove("[value=" + tagId + "]");
+
+    // 将id添加到set集合中
+    tags_selected.add(tagId);
+
+    form.render();
 }

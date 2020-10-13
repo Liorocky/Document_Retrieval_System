@@ -50,14 +50,24 @@ public class TagController {
     /**
      * 创建标签
      * @param tag
-     * @return
+     * @return 返回创建好的tag信息
      */
     @PostMapping({"/", ""})
-    public Result<String> postTag(@RequestBody Tag tag) {
-        if (tagService.postTag(tag) == 0) {
+    public Result<Tag> postTag(@RequestBody Tag tag) {
+        Tag newTag = new Tag();
+        try {
+            tagService.postTag(tag); // 影响行数
+        } catch (Exception e) {
+            return new Result<>(new NotFoundException("错误，重复数据"));
+        }
+
+        int id = (int) tag.getId(); // 自增id
+        if (id == 0) {
             return new Result<>(new NotFoundException("错误，添加失败"));
         } else {
-            return new Result<>("添加成功");
+            newTag.setName(tag.getName());
+            newTag.setId(id);
+            return new Result<>(newTag);
         }
     }
 

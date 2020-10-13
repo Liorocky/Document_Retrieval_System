@@ -17,11 +17,12 @@
             *
         FROM
             tag
+        ORDER BY id
     </select>
 
-    <insert id="postTag">
-        INSERT INTO tag (id, name)
-        VALUES ( #{id}, #{name} );
+    <insert id="postTag" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tag ( `name` )
+        VALUES ( #{name} );
     </insert>
 
     <delete id="deleteTag" parameterType="int">
