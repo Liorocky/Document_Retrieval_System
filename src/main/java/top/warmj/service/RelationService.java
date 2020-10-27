@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.pojo.Relation;
+import top.warmj.entity.RelationDO;
 
 import java.util.List;
 
@@ -10,20 +10,20 @@ public interface RelationService {
      * @param id
      * @return
      */
-    Relation getRelation(int id);
+    RelationDO getRelation(int id);
 
     /**
      * 获取所有映射关系
      * @return
      */
-    List<Relation> getAllRelation();
+    List<RelationDO> listAllRelations();
 
     /**
      * 创建映射关系
-     * @param relation
+     * @param relationDO
      * @return
      */
-    int postRelation(Relation relation);
+    int insertRelation(RelationDO relationDO);
 
     /**
      * 删除映射关系

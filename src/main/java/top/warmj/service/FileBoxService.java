@@ -1,8 +1,6 @@
 package top.warmj.service;
 
-import org.omg.PortableInterceptor.INACTIVE;
-import top.warmj.pojo.File;
-import top.warmj.pojo.FileBox;
+import top.warmj.entity.FileBoxDO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,19 +11,19 @@ public interface FileBoxService {
      * 获取所有文档集
      * @return
      */
-    List<FileBox> getAllFileBox();
+    List<FileBoxDO> listAllFileBoxes();
 
     /**
      * 获取文档集 分页
      * @return
      */
-    List<FileBox> getAllFileBoxLimit(int page, int limit);
+    List<FileBoxDO> listAllFileBoxesByLimit(int page, int limit);
 
     /**
      * 通过idList获取文档集
      * @return
      */
-    List<FileBox> getFileBoxByIdList(List<Integer> idList);
+    List<FileBoxDO> listFileBoxesByIdList(List<Integer> idList);
 
     /**
      * 通过idList获取文档集 分页
@@ -34,14 +32,14 @@ public interface FileBoxService {
      * @param limit 每页最多数据
      * @return
      */
-    List<FileBox> getFileBoxByIdListLimit(List<Integer> idList, int page, int limit);
+    List<FileBoxDO> listFileBoxesByIdListLimit(List<Integer> idList, int page, int limit);
 
     /**
      * 创建文档集
-     * @param fileBox
+     * @param fileBoxDO
      * @return
      */
-    int postFileBox(FileBox fileBox);
+    int insertFileBox(FileBoxDO fileBoxDO);
 
     /**
      * 删除文档集
@@ -55,13 +53,13 @@ public interface FileBoxService {
      * @param title
      * @return
      */
-    List<HashMap<String, Object>> getRelationListByTitle(String title);
+    List<HashMap<String, Object>> listRelationsByTitle(String title);
 
     /**
      * 根据标题获取文档集
      * @param title
      * @return
      */
-    List<FileBox> getFileBoxByTitle(String title);
+    List<FileBoxDO> listFileBoxesByTitle(String title);
 
 }

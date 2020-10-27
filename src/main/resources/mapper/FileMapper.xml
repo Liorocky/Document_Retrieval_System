@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.warmj.dao.FileDao">
 
-    <resultMap type="File" id="FileResultMap">
+    <resultMap type="FileDO" id="FileResultMap">
         <id column="file_box_id" property="fileBoxId" javaType="int" jdbcType="INTEGER"/>
         <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
         <result column="file_name" property="fileName" javaType="String" jdbcType="VARCHAR"/>
@@ -22,14 +22,14 @@
             id = #{id}
     </select>
 
-    <select id="getAllFile" resultMap="FileResultMap">
+    <select id="listAllFiles" resultMap="FileResultMap">
         SELECT
             *
         FROM
             file
     </select>
 
-    <select id="getFiles" parameterType="int" resultMap="FileResultMap">
+    <select id="listFilesByFileBoxId" parameterType="int" resultMap="FileResultMap">
         SELECT
             *
         FROM
@@ -38,7 +38,7 @@
             file_box_id = #{id}
     </select>
 
-    <insert id="postFile">
+    <insert id="insertFile">
         INSERT INTO file (file_box_id, file_name, number_order, path, type, add_time, last_time)
         VALUES ( #{fileBoxId}, #{fileName}, #{numberOrder}, #{path}, #{type}, NOW(), NOW());
     </insert>
@@ -51,14 +51,14 @@
             id = #{id}
     </delete>
 
-    <select id="getFilesByIdList" resultMap="FileResultMap">
+    <select id="listFilesByIdList" resultMap="FileResultMap">
         SELECT
-        *
+            *
         FROM
-        file
+            file
         WHERE id IN
-        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
     </select>
 </mapper>

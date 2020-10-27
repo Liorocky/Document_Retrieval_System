@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.pojo.Tag;
+import top.warmj.entity.TagDO;
 
 import java.util.List;
 
@@ -10,20 +10,20 @@ public interface TagService {
      * @param id
      * @return
      */
-    Tag getTag(int id);
+    TagDO getTag(int id);
 
     /**
      * 获取所有标签
      * @return
      */
-    List<Tag> getAllTag();
+    List<TagDO> listAllTags();
 
     /**
      * 创建标签
-     * @param tag
+     * @param tagDO
      * @return
      */
-    int postTag(Tag tag);
+    int postTag(TagDO tagDO);
 
     /**
      * 删除标签

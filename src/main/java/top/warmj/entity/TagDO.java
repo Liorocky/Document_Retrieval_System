@@ -1,7 +1,7 @@
-package top.warmj.pojo;
+package top.warmj.entity;
 
 
-public class Tag {
+public class TagDO {
 
   private int id;
   private String name;

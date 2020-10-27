@@ -2,8 +2,7 @@ package top.warmj.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import top.warmj.pojo.File;
-import top.warmj.pojo.FileBox;
+import top.warmj.entity.FileBoxDO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,15 +11,15 @@ import java.util.List;
 @Repository
 public interface FileBoxDao {
 
-    List<FileBox> getAllFileBox();
+    List<FileBoxDO> listAllFileBoxes();
 
     /**
      * 获取文档集 分页
      * @return
      */
-    List<FileBox> getAllFileBoxLimit(int page, int limit);
+    List<FileBoxDO> listAllFileBoxesByLimit(int page, int limit);
 
-    List<FileBox> getFileBoxByIdList(List<Integer> idList);
+    List<FileBoxDO> listFileBoxesByIdList(List<Integer> idList);
 
     /**
      * 通过idList获取文档集 分页
@@ -29,14 +28,14 @@ public interface FileBoxDao {
      * @param limit 每页最多数据
      * @return
      */
-    List<FileBox> getFileBoxByIdListLimit(List<Integer> idList, int page, int limit);
+    List<FileBoxDO> listFileBoxesByIdListLimit(List<Integer> idList, int page, int limit);
 
-    int postFileBox(FileBox fileBox);
+    int insertFileBox(FileBoxDO fileBoxDO);
 
     int deleteFileBox(int id);
 
-    List<HashMap<String, Object>> getRelationListByTitle(String title);
+    List<HashMap<String, Object>> listRelationsByTitle(String title);
 
-    List<FileBox> getFileBoxByTitle(String title);
+    List<FileBoxDO> listFileBoxesByTitle(String title);
 
 }

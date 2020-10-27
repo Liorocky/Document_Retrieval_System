@@ -1,10 +1,10 @@
-package top.warmj.pojo;
+package top.warmj.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class File {
+public class FileDO {
 
   private int id;
   private int fileBoxId;

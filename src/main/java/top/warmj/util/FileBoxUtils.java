@@ -1,6 +1,6 @@
-package top.warmj.utils;
+package top.warmj.util;
 
-import top.warmj.pojo.FileBox;
+import top.warmj.entity.FileBoxDO;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.List;
  * 3 10      20 ~ 30
  */
 public class FileBoxUtils {
-    public List<FileBox> subList(List<FileBox> source, int page, int limit) {
-        List<FileBox> target = new LinkedList<>();
+    public List<FileBoxDO> subList(List<FileBoxDO> source, int page, int limit) {
+        List<FileBoxDO> target = new LinkedList<>();
         int min = Math.min(source.size(), page * limit);
         target = source.subList((page - 1) * limit, min);
 

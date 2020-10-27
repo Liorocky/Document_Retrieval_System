@@ -2,18 +2,19 @@ package top.warmj.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import top.warmj.pojo.Tag;
+import top.warmj.entity.TagDO;
 
 import java.util.List;
 
 @Mapper
 @Repository
 public interface TagDao {
-    Tag getTag(int id);
+    TagDO getTag(int id);
 
-    int postTag(Tag tag);
+    List<TagDO> listAllTags();
+
+    int postTag(TagDO tagDO);
 
     int deleteTag(int id);
 
-    List<Tag> getAllTag();
 }

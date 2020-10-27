@@ -3,8 +3,8 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.pojo.Result;
-import top.warmj.pojo.Tag;
+import top.warmj.dto.ResultDTO;
+import top.warmj.entity.TagDO;
 import top.warmj.service.TagService;
 
 import java.util.LinkedList;
@@ -22,14 +22,14 @@ public class TagController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<List<Tag>> getTag(@PathVariable int id) {
-        Tag tag = tagService.getTag(id);
-        if (tag == null) {
-            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+    public ResultDTO<List<TagDO>> getTag(@PathVariable int id) {
+        TagDO tagDO = tagService.getTag(id);
+        if (tagDO == null) {
+            return new ResultDTO<>(new NotFoundException("错误，数据库中未查到相关资源"));
         } else {
-            List<Tag> list = new LinkedList<>();
-            list.add(tag);
-            return new Result<>(list);
+            List<TagDO> list = new LinkedList<>();
+            list.add(tagDO);
+            return new ResultDTO<>(list);
         }
     }
 
@@ -38,36 +38,36 @@ public class TagController {
      * @return
      */
     @GetMapping({"/", ""})
-    public Result<List<Tag>> getAllTag() {
-        List<Tag> list = tagService.getAllTag();
+    public ResultDTO<List<TagDO>> listAllTags() {
+        List<TagDO> list = tagService.listAllTags();
         if (list.size() == 0) {
-            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+            return new ResultDTO<>(new NotFoundException("错误，数据库中未查到相关资源"));
         } else {
-            return new Result<>(list);
+            return new ResultDTO<>(list);
         }
     }
 
     /**
      * 创建标签
-     * @param tag
+     * @param tagDO
      * @return 返回创建好的tag信息
      */
     @PostMapping({"/", ""})
-    public Result<Tag> postTag(@RequestBody Tag tag) {
-        Tag newTag = new Tag();
+    public ResultDTO<TagDO> postTag(@RequestBody TagDO tagDO) {
+        TagDO newTagDO = new TagDO();
         try {
-            tagService.postTag(tag); // 影响行数
+            tagService.postTag(tagDO); // 影响行数
         } catch (Exception e) {
-            return new Result<>(new NotFoundException("错误，重复数据"));
+            return new ResultDTO<>(new NotFoundException("错误，重复数据"));
         }
 
-        int id = (int) tag.getId(); // 自增id
+        int id = (int) tagDO.getId(); // 自增id
         if (id == 0) {
-            return new Result<>(new NotFoundException("错误，添加失败"));
+            return new ResultDTO<>(new NotFoundException("错误，添加失败"));
         } else {
-            newTag.setName(tag.getName());
-            newTag.setId(id);
-            return new Result<>(newTag);
+            newTagDO.setName(tagDO.getName());
+            newTagDO.setId(id);
+            return new ResultDTO<>(newTagDO);
         }
     }
 
@@ -77,11 +77,11 @@ public class TagController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public Result<String> deleteTag(@PathVariable int id) {
+    public ResultDTO<String> deleteTag(@PathVariable int id) {
         if (tagService.deleteTag(id) == 0) {
-            return new Result<>(new NotFoundException("错误，删除失败"));
+            return new ResultDTO<>(new NotFoundException("错误，删除失败"));
         } else {
-            return new Result<>("删除成功");
+            return new ResultDTO<>("删除成功");
         }
     }
 }

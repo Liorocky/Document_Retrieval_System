@@ -1,11 +1,11 @@
-package top.warmj.pojo;
+package top.warmj.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class FileBox {
+public class FileBoxDO {
 
   private int id;
   private String title;

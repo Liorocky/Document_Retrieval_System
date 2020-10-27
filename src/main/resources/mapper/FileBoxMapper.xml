@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.warmj.dao.FileBoxDao">
 
-    <resultMap type="FileBox" id="FileBoxResultMap">
+    <resultMap type="FileBoxDO" id="FileBoxResultMap">
         <result column="title" property="title" javaType="String" jdbcType="VARCHAR"/>
         <result column="add_time" property="addTime"/>
         <result column="last_time" property="lastTime"/>
     </resultMap>
 
-    <resultMap type="File" id="FileResultMap">
+    <resultMap type="FileDO" id="FileResultMap">
         <id column="file_box_id" property="fileBoxId" javaType="int" jdbcType="INTEGER"/>
         <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
         <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
@@ -18,14 +18,14 @@
         <result column="last_time" property="lastTime"/>
     </resultMap>
 
-    <select id="getAllFileBox" resultMap="FileBoxResultMap">
+    <select id="listAllFileBoxes" resultMap="FileBoxResultMap">
         SELECT
             *
         FROM
             file_box
     </select>
 
-    <select id="getAllFileBoxLimit" resultMap="FileBoxResultMap">
+    <select id="listAllFileBoxesByLimit" resultMap="FileBoxResultMap">
         SELECT
             *
         FROM
@@ -33,7 +33,7 @@
         LIMIT #{page}, #{limit}
     </select>
 
-    <select id="getFileBoxByIdList" resultMap="FileBoxResultMap">
+    <select id="listFileBoxesByIdList" resultMap="FileBoxResultMap">
         SELECT
             *
         FROM
@@ -44,11 +44,11 @@
         </foreach>
     </select>
 
-    <select id="getFileBoxByIdListLimit" resultMap="FileBoxResultMap">
+    <select id="listFileBoxesByIdListLimit" resultMap="FileBoxResultMap">
         SELECT
-        *
+            *
         FROM
-        file_box
+            file_box
         WHERE id IN
         <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
             #{id}
@@ -56,7 +56,7 @@
         LIMIT #{page}, #{limit}
     </select>
 
-    <insert id="postFileBox" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertFileBox" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO file_box (`title`, `desc`, `count`, `add_time`, `last_time`)
         VALUES (#{title}, #{desc}, #{count}, NOW(), NOW());
     </insert>
@@ -69,7 +69,7 @@
             id = #{id}
     </delete>
 
-    <select id="getRelationListByTitle" parameterType="java.lang.String" resultType="java.util.HashMap">
+    <select id="listRelationsByTitle" parameterType="java.lang.String" resultType="java.util.HashMap">
         SELECT
             file_box_id,
             GROUP_CONCAT( tag_id ) AS tag_id
@@ -81,7 +81,7 @@
             file_box_id
     </select>
 
-    <select id="getFileBoxByTitle" parameterType="java.lang.String" resultMap="FileBoxResultMap">
+    <select id="listFileBoxesByTitle" parameterType="java.lang.String" resultMap="FileBoxResultMap">
         SELECT
             *
         FROM

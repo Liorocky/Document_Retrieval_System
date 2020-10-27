@@ -3,7 +3,7 @@ package top.warmj.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.warmj.dao.TagDao;
-import top.warmj.pojo.Tag;
+import top.warmj.entity.TagDO;
 import top.warmj.service.TagService;
 
 import java.util.List;
@@ -14,18 +14,18 @@ public class TagServiceImpl implements TagService {
     TagDao tagDao;
 
     @Override
-    public Tag getTag(int id) {
+    public TagDO getTag(int id) {
         return tagDao.getTag(id);
     }
 
     @Override
-    public List<Tag> getAllTag() {
-        return tagDao.getAllTag();
+    public List<TagDO> listAllTags() {
+        return tagDao.listAllTags();
     }
 
     @Override
-    public int postTag(Tag tag) {
-        return tagDao.postTag(tag);
+    public int postTag(TagDO tagDO) {
+        return tagDao.postTag(tagDO);
     }
 
     @Override

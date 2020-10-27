@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.pojo.File;
+import top.warmj.entity.FileDO;
 
 import java.util.List;
 
@@ -10,27 +10,27 @@ public interface FileService {
      * @param id
      * @return
      */
-    File getFile(int id);
+    FileDO getFile(int id);
 
     /**
      * 获取所有文件
      * @return
      */
-    List<File> getAllFile();
+    List<FileDO> listAllFiles();
 
     /**
      * 获取某个文档集下的所有文件
      * @param id
      * @return
      */
-    List<File> getFiles(int id);
+    List<FileDO> listFilesByFileBoxId(int id);
 
     /**
      * 创建文件
-     * @param file
+     * @param fileDO
      * @return
      */
-    int postFile(File file);
+    int insertFile(FileDO fileDO);
 
     /**
      * 删除文件
@@ -44,5 +44,5 @@ public interface FileService {
      * @param idList
      * @return
      */
-    List<File> getFilesByIdList(List<Integer> idList);
+    List<FileDO> listFilesByIdList(List<Integer> idList);
 }

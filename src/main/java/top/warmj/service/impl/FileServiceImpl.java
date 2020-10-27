@@ -3,10 +3,9 @@ package top.warmj.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.warmj.dao.FileDao;
-import top.warmj.pojo.File;
+import top.warmj.entity.FileDO;
 import top.warmj.service.FileService;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,23 +15,23 @@ public class FileServiceImpl implements FileService {
     FileDao fileDao;
 
     @Override
-    public File getFile(int id) {
+    public FileDO getFile(int id) {
         return fileDao.getFile(id);
     }
 
     @Override
-    public List<File> getAllFile() {
-        return fileDao.getAllFile();
+    public List<FileDO> listAllFiles() {
+        return fileDao.listAllFiles();
     }
 
     @Override
-    public List<File> getFiles(int id) {
-        return fileDao.getFiles(id);
+    public List<FileDO> listFilesByFileBoxId(int id) {
+        return fileDao.listFilesByFileBoxId(id);
     }
 
     @Override
-    public int postFile(File file) {
-        return fileDao.postFile(file);
+    public int insertFile(FileDO fileDO) {
+        return fileDao.insertFile(fileDO);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<File> getFilesByIdList(List<Integer> idList) {
-        return fileDao.getFilesByIdList(idList);
+    public List<FileDO> listFilesByIdList(List<Integer> idList) {
+        return fileDao.listFilesByIdList(idList);
     }
 }

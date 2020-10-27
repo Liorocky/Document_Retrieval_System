@@ -1,18 +1,18 @@
-package top.warmj.pojo;
+package top.warmj.entity;
 
 
-public class Relation {
+public class RelationDO {
 
   private int id;
   private int tagId;
   private int fileBoxId;
 
-  public Relation(int tagId, int fileBoxId) {
+  public RelationDO(int tagId, int fileBoxId) {
     this.tagId = tagId;
     this.fileBoxId = fileBoxId;
   }
 
-  public Relation(){}
+  public RelationDO(){}
 
   public int getId() {
     return id;

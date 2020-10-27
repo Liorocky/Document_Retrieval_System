@@ -3,7 +3,7 @@ package top.warmj.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.warmj.dao.RelationDao;
-import top.warmj.pojo.Relation;
+import top.warmj.entity.RelationDO;
 import top.warmj.service.RelationService;
 
 import java.util.List;
@@ -14,18 +14,18 @@ public class RelationServiceImpl implements RelationService {
     RelationDao relationDao;
 
     @Override
-    public Relation getRelation(int id) {
+    public RelationDO getRelation(int id) {
         return relationDao.getRelation(id);
     }
 
     @Override
-    public List<Relation> getAllRelation() {
-        return relationDao.getAllRelation();
+    public List<RelationDO> listAllRelations() {
+        return relationDao.listAllRelations();
     }
 
     @Override
-    public int postRelation(Relation relation) {
-        return relationDao.postRelation(relation);
+    public int insertRelation(RelationDO relationDO) {
+        return relationDao.insertRelation(relationDO);
     }
 
     @Override

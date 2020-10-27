@@ -2,23 +2,22 @@ package top.warmj.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import top.warmj.pojo.File;
+import top.warmj.entity.FileDO;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
 @Mapper
 public interface FileDao {
-    File getFile(int id);
+    FileDO getFile(int id);
 
-    List<File> getAllFile();
+    List<FileDO> listAllFiles();
 
-    List<File> getFiles(int id);
+    List<FileDO> listFilesByFileBoxId(int id);
 
-    int postFile(File file);
+    int insertFile(FileDO fileDO);
 
     int deleteFile(int id);
 
-    List<File> getFilesByIdList(List<Integer> idList);
+    List<FileDO> listFilesByIdList(List<Integer> idList);
 }

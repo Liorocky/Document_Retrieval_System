@@ -3,8 +3,8 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.pojo.Relation;
-import top.warmj.pojo.Result;
+import top.warmj.dto.ResultDTO;
+import top.warmj.entity.RelationDO;
 import top.warmj.service.RelationService;
 
 import java.util.LinkedList;
@@ -22,14 +22,14 @@ public class RelationController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<List<Relation>> getRelation(@PathVariable int id) {
-        Relation relation = relationService.getRelation(id);
-        if (relation == null) {
-            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+    public ResultDTO<List<RelationDO>> getRelation(@PathVariable int id) {
+        RelationDO relationDO = relationService.getRelation(id);
+        if (relationDO == null) {
+            return new ResultDTO<>(new NotFoundException("错误，数据库中未查到相关资源"));
         } else {
-            List<Relation> list = new LinkedList<>();
-            list.add(relation);
-            return  new Result<>(list);
+            List<RelationDO> list = new LinkedList<>();
+            list.add(relationDO);
+            return  new ResultDTO<>(list);
         }
     }
 
@@ -38,26 +38,26 @@ public class RelationController {
      * @return
      */
     @GetMapping({"/", ""})
-    public Result<List<Relation>> getAllFile() {
-        List<Relation> list = relationService.getAllRelation();
+    public ResultDTO<List<RelationDO>> listAllRelations() {
+        List<RelationDO> list = relationService.listAllRelations();
         if (list.size() == 0) {
-            return new Result<>(new NotFoundException("错误，数据库中未查到相关资源"));
+            return new ResultDTO<>(new NotFoundException("错误，数据库中未查到相关资源"));
         } else {
-            return new Result<>(list);
+            return new ResultDTO<>(list);
         }
     }
 
     /**
      * 创建映射关系
-     * @param relation
+     * @param relationDO
      * @return
      */
     @PostMapping({"/", ""})
-    public Result<String> postRelation(@RequestBody Relation relation) {
-        if (relationService.postRelation(relation) == 0) {
-            return new Result<>(new NotFoundException("错误，添加失败"));
+    public ResultDTO<String> insertRelation(@RequestBody RelationDO relationDO) {
+        if (relationService.insertRelation(relationDO) == 0) {
+            return new ResultDTO<>(new NotFoundException("错误，添加失败"));
         } else {
-            return new Result<>("添加成功");
+            return new ResultDTO<>("添加成功");
         }
     }
 
@@ -67,11 +67,11 @@ public class RelationController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public Result<String> deleteFile(@PathVariable int id) {
+    public ResultDTO<String> deleteFile(@PathVariable int id) {
         if (relationService.deleteRelation(id) == 0) {
-            return new Result<>(new NotFoundException("错误，删除失败"));
+            return new ResultDTO<>(new NotFoundException("错误，删除失败"));
         } else {
-            return new Result<>("删除成功");
+            return new ResultDTO<>("删除成功");
         }
     }
 }

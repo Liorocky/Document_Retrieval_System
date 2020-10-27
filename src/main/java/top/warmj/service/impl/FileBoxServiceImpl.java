@@ -3,7 +3,7 @@ package top.warmj.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.warmj.dao.FileBoxDao;
-import top.warmj.pojo.FileBox;
+import top.warmj.entity.FileBoxDO;
 import top.warmj.service.FileBoxService;
 
 import java.util.HashMap;
@@ -15,29 +15,29 @@ public class FileBoxServiceImpl implements FileBoxService {
     FileBoxDao fileBoxDao;
 
     @Override
-    public List<FileBox> getAllFileBox() {
-        return fileBoxDao.getAllFileBox();
+    public List<FileBoxDO> listAllFileBoxes() {
+        return fileBoxDao.listAllFileBoxes();
     }
 
     @Override
-    public List<FileBox> getAllFileBoxLimit(int page, int limit) {
-        return fileBoxDao.getAllFileBoxLimit(page, limit);
+    public List<FileBoxDO> listAllFileBoxesByLimit(int page, int limit) {
+        return fileBoxDao.listAllFileBoxesByLimit(page, limit);
     }
 
     @Override
-    public List<FileBox> getFileBoxByIdList(List<Integer> idList) {
-        return fileBoxDao.getFileBoxByIdList(idList);
+    public List<FileBoxDO> listFileBoxesByIdList(List<Integer> idList) {
+        return fileBoxDao.listFileBoxesByIdList(idList);
     }
 
     @Override
-    public List<FileBox> getFileBoxByIdListLimit(List<Integer> idList, int page, int limit) {
-        return fileBoxDao.getFileBoxByIdListLimit(idList, page, limit);
+    public List<FileBoxDO> listFileBoxesByIdListLimit(List<Integer> idList, int page, int limit) {
+        return fileBoxDao.listFileBoxesByIdListLimit(idList, page, limit);
     }
 
     @Override
-    public int postFileBox(FileBox fileBox) {
-        fileBoxDao.postFileBox(fileBox);
-        return (int) fileBox.getId(); // 返回自增id
+    public int insertFileBox(FileBoxDO fileBoxDO) {
+        fileBoxDao.insertFileBox(fileBoxDO);
+        return (int) fileBoxDO.getId(); // 返回自增id
     }
 
     @Override
@@ -46,12 +46,12 @@ public class FileBoxServiceImpl implements FileBoxService {
     }
 
     @Override
-    public List<HashMap<String, Object>> getRelationListByTitle(String title) {
-        return fileBoxDao.getRelationListByTitle(title);
+    public List<HashMap<String, Object>> listRelationsByTitle(String title) {
+        return fileBoxDao.listRelationsByTitle(title);
     }
 
     @Override
-    public List<FileBox> getFileBoxByTitle(String title) {
-        return fileBoxDao.getFileBoxByTitle(title);
+    public List<FileBoxDO> listFileBoxesByTitle(String title) {
+        return fileBoxDao.listFileBoxesByTitle(title);
     }
 }

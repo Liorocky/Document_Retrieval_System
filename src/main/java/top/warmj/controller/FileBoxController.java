@@ -3,16 +3,15 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.pojo.File;
-import top.warmj.pojo.FileBox;
-import top.warmj.pojo.Relation;
-import top.warmj.pojo.Result;
+import top.warmj.entity.FileDO;
+import top.warmj.entity.FileBoxDO;
+import top.warmj.entity.RelationDO;
+import top.warmj.dto.ResultDTO;
 import top.warmj.service.FileBoxService;
 import top.warmj.service.FileService;
 import top.warmj.service.RelationService;
-import top.warmj.utils.FileBoxUtils;
+import top.warmj.util.FileBoxUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -36,8 +35,8 @@ public class FileBoxController {
      * @return
      */
     @GetMapping({"/", ""})
-    public Result<List<FileBox>> getAllFileBox() {
-        return new Result<>(fileBoxService.getAllFileBox());
+    public ResultDTO<List<FileBoxDO>> listAllFileBoxes() {
+        return new ResultDTO<>(fileBoxService.listAllFileBoxes());
     }
 
     /**
@@ -47,10 +46,10 @@ public class FileBoxController {
      * @return
      */
     @GetMapping({"/parameter"})
-    public Result<List<FileBox>> getAllFileBoxLimit(@RequestParam int page, @RequestParam int limit) {
-        List<FileBox> list = fileBoxService.getAllFileBoxLimit((page - 1) * limit, limit);
-        int count = fileBoxService.getAllFileBox().size();
-        return new Result<>(list, count);
+    public ResultDTO<List<FileBoxDO>> listAllFileBoxesByLimit(@RequestParam int page, @RequestParam int limit) {
+        List<FileBoxDO> list = fileBoxService.listAllFileBoxesByLimit((page - 1) * limit, limit);
+        int count = fileBoxService.listAllFileBoxes().size();
+        return new ResultDTO<>(list, count);
     }
 
     /**
@@ -58,17 +57,17 @@ public class FileBoxController {
      * @return
      */
     @GetMapping("/id")
-    public Result<List<FileBox>> getFileBoxByIdList(@RequestBody Map<String, Object> map) {
+    public ResultDTO<List<FileBoxDO>> listFileBoxesByIdList(@RequestBody Map<String, Object> map) {
         // 从map中获取id
         ArrayList<Integer> arrayList = (ArrayList<Integer>) map.get("fileBoxId");
 
         if (arrayList.size() == 0) {
-            return new Result<>(new NotFoundException("id不能为空"));
+            return new ResultDTO<>(new NotFoundException("id不能为空"));
         }
 
         // 转换成list
         List<Integer> fileBoxIdList = new LinkedList<>(arrayList);
-        return new Result<>(fileBoxService.getFileBoxByIdList(fileBoxIdList));
+        return new ResultDTO<>(fileBoxService.listFileBoxesByIdList(fileBoxIdList));
     }
 
     /**
@@ -87,38 +86,38 @@ public class FileBoxController {
      *            fileBoxId 文档集id 自增id
      */
     @PostMapping({"/", ""})
-    public Result<String> postFileBox(@RequestBody Map<String, Object> map) {
+    public ResultDTO<String> postFileBox(@RequestBody Map<String, Object> map) {
         // 创建fileBox
-        FileBox fileBox = new FileBox();
+        FileBoxDO fileBoxDO = new FileBoxDO();
         String title = (String) map.get("title");
 
-        fileBox.setTitle(title);
-        fileBox.setDesc((String) map.get("desc"));
-        fileBox.setCount((Integer) map.get("count"));
-        int fileBoxId = fileBoxService.postFileBox(fileBox); // 获得自增id
+        fileBoxDO.setTitle(title);
+        fileBoxDO.setDesc((String) map.get("desc"));
+        fileBoxDO.setCount((Integer) map.get("count"));
+        int fileBoxId = fileBoxService.insertFileBox(fileBoxDO); // 获得自增id
 
         // 创建relation
         ArrayList<String> tags = (ArrayList<String>) map.get("tags");
         for (String s : tags) {
-            relationService.postRelation(new Relation(Integer.parseInt(s), fileBoxId));
+            relationService.insertRelation(new RelationDO(Integer.parseInt(s), fileBoxId));
         }
 
         // 创建file
         ArrayList<HashMap<String, Object>> files = (ArrayList<HashMap<String, Object>>) map.get("files");
-        File file = new File();
+        FileDO fileDO = new FileDO();
 
         for (HashMap<String, Object> m : files) {
 
-            file.setFileBoxId(fileBoxId);
-            file.setFileName((String) m.get("fileName"));
-            file.setNumberOrder((Integer) m.get("numberOrder"));
-            file.setPath((String) m.get("path"));
-            file.setType((String) m.get("type"));
+            fileDO.setFileBoxId(fileBoxId);
+            fileDO.setFileName((String) m.get("fileName"));
+            fileDO.setNumberOrder((Integer) m.get("numberOrder"));
+            fileDO.setPath((String) m.get("path"));
+            fileDO.setType((String) m.get("type"));
 
-            fileService.postFile(file);
+            fileService.insertFile(fileDO);
         }
 
-        return new Result<>("success");
+        return new ResultDTO<>("success");
     }
 
     /**
@@ -128,11 +127,11 @@ public class FileBoxController {
      * @return
      */
     @DeleteMapping("/{id}")
-    public Result<String> deleteFileBox(@PathVariable int id) {
+    public ResultDTO<String> deleteFileBox(@PathVariable int id) {
         if (fileBoxService.deleteFileBox(id) == 0) {
-            return new Result<>(new NotFoundException("错误，删除失败"));
+            return new ResultDTO<>(new NotFoundException("错误，删除失败"));
         } else {
-            return new Result<>("删除成功");
+            return new ResultDTO<>("删除成功");
         }
     }
 
@@ -142,13 +141,13 @@ public class FileBoxController {
      * @return
      */
     @PostMapping("/title/tags")
-    public Result<List<FileBox>> getFileBoxByTitleAndTags(@RequestBody Map<Object, Object> map) {
+    public ResultDTO<List<FileBoxDO>> getFileBoxByTitleAndTags(@RequestBody Map<Object, Object> map) {
         // 获取分页数据
         int page = (int) map.get("page");
         int limit = (int) map.get("limit");
 
         if (!map.containsKey("title") && !map.containsKey("key")) {
-            return getAllFileBoxLimit(page, limit);
+            return listAllFileBoxesByLimit(page, limit);
         }
 
         // 获取标题
@@ -159,12 +158,12 @@ public class FileBoxController {
 
         // 如果标题为空且tag为空，说明查询所有文档集
         if (title.equals("") && tagsReqObject.isEmpty()) {
-            return getAllFileBoxLimit(page, limit);
+            return listAllFileBoxesByLimit(page, limit);
         }
 
         // 如果标题不为空 但 tag为空 直接调接口
         if (!title.equals("") && tagsReqObject.isEmpty()) {
-            return new Result<>(fileBoxService.getFileBoxByTitle(title));
+            return new ResultDTO<>(fileBoxService.listFileBoxesByTitle(title));
         }
 
         ArrayList<Integer> tagsReqInt = new ArrayList<>();
@@ -182,7 +181,7 @@ public class FileBoxController {
         List<Integer> fileBoxIdList = new LinkedList<>();
 
         // 根据标题获取文档集与标签的映射关系列表
-        List<HashMap<String, Object>> relationList = fileBoxService.getRelationListByTitle(title);
+        List<HashMap<String, Object>> relationList = fileBoxService.listRelationsByTitle(title);
 
         // 遍历list 取交集 将符合条件的id放入fileBoxIdList中
         for (HashMap<String, Object> m : relationList) {
@@ -204,15 +203,15 @@ public class FileBoxController {
         }
 
         // 返回的FileBox列表
-        List<FileBox> fileBoxList;
+        List<FileBoxDO> fileBoxDOList;
         if (fileBoxIdList.isEmpty()) {
-            return new Result<>(new NotFoundException("没有数据"));
+            return new ResultDTO<>(new NotFoundException("没有数据"));
         }
 
-        fileBoxList = fileBoxService.getFileBoxByIdList(fileBoxIdList);
-        int count = fileBoxList.size();
-        fileBoxList = new FileBoxUtils().subList(fileBoxList, page, limit);
+        fileBoxDOList = fileBoxService.listFileBoxesByIdList(fileBoxIdList);
+        int count = fileBoxDOList.size();
+        fileBoxDOList = new FileBoxUtils().subList(fileBoxDOList, page, limit);
 
-        return new Result<>(fileBoxList, count);
+        return new ResultDTO<>(fileBoxDOList, count);
     }
 }

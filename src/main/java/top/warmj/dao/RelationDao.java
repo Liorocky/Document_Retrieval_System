@@ -2,18 +2,18 @@ package top.warmj.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import top.warmj.pojo.Relation;
+import top.warmj.entity.RelationDO;
 
 import java.util.List;
 
 @Repository
 @Mapper
 public interface RelationDao {
-    Relation getRelation(int id);
+    RelationDO getRelation(int id);
 
-    List<Relation> getAllRelation();
+    List<RelationDO> listAllRelations();
 
-    int postRelation(Relation relation);
+    int insertRelation(RelationDO relationDO);
 
     int deleteRelation(int id);
 }

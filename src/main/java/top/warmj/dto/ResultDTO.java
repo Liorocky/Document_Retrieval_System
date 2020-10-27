@@ -1,9 +1,9 @@
-package top.warmj.pojo;
+package top.warmj.dto;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Result<T> implements Serializable {
+public class ResultDTO<T> implements Serializable {
     private static final int serialVersionUID = 1;
 
     public static final int SUCCESS = 0;
@@ -52,11 +52,11 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
-    public Result() {
+    public ResultDTO() {
         super();
     }
 
-    public Result(T data) {
+    public ResultDTO(T data) {
         super();
         this.data = data;
         if (data instanceof List) {
@@ -64,13 +64,13 @@ public class Result<T> implements Serializable {
         }
     }
 
-    public Result(T data, int count) {
+    public ResultDTO(T data, int count) {
         super();
         this.data = data;
         this.count = count;
     }
 
-    public Result(Throwable e) {
+    public ResultDTO(Throwable e) {
         super();
         this.msg = e.toString();
         this.code = FAIL;
