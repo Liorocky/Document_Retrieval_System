@@ -32,4 +32,13 @@
         WHERE
             id = #{id}
     </delete>
+
+    <select id="listTagsByFileBoxId" parameterType="int" resultType="top.warmj.model.entity.TagDO">
+        SELECT
+            *
+        FROM
+            tag
+        WHERE
+            id IN ( SELECT tag_id FROM relation WHERE file_box_id = #{id} )
+    </select>
 </mapper>

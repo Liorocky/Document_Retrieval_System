@@ -2,8 +2,8 @@ package top.warmj.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.warmj.dao.FileBoxDao;
-import top.warmj.entity.FileBoxDO;
+import top.warmj.mapper.FileBoxDao;
+import top.warmj.model.entity.FileBoxDO;
 import top.warmj.service.FileBoxService;
 
 import java.util.HashMap;

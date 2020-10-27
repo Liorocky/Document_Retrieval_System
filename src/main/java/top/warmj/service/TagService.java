@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.entity.TagDO;
+import top.warmj.model.entity.TagDO;
 
 import java.util.List;
 
@@ -31,4 +31,11 @@ public interface TagService {
      * @return
      */
     int deleteTag(int id);
+
+    /**
+     * 根据fileBoxId获取标签
+     * @param id
+     * @return
+     */
+    List<TagDO> listTagsByFileBoxId(int id);
 }

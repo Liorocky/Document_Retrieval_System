@@ -3,15 +3,18 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.warmj.model.dto.FileDetailDTO;
 import top.warmj.model.entity.FileDO;
 import top.warmj.model.entity.FileBoxDO;
 import top.warmj.model.entity.RelationDO;
 import top.warmj.model.dto.ResultDTO;
+import top.warmj.model.entity.TagDO;
 import top.warmj.query.FileBoxSearchQuery;
 import top.warmj.query.FileBoxUploadQuery;
 import top.warmj.service.FileBoxService;
 import top.warmj.service.FileService;
 import top.warmj.service.RelationService;
+import top.warmj.service.TagService;
 import top.warmj.util.FileBoxUtils;
 
 import java.util.*;
@@ -28,6 +31,9 @@ public class FileBoxController {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    TagService tagService;
 
     private static final String FILEPATH = "D:/upload/"; // 存储路径
 
@@ -189,5 +195,28 @@ public class FileBoxController {
         fileBoxDOList = new FileBoxUtils().subList(fileBoxDOList, page, limit);
 
         return new ResultDTO<>(fileBoxDOList, count);
+    }
+
+
+    /**
+     * 获取某个文档集中的所有文件
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResultDTO<FileDetailDTO> listFilesByFileBoxId(@PathVariable int id) {
+        List<FileDO> fileDOList = fileService.listFilesByFileBoxId(id);
+        List<TagDO> tagDOList = tagService.listTagsByFileBoxId(id);
+
+        FileDetailDTO fileDetailDTO = new FileDetailDTO();
+        fileDetailDTO.setFileDOList(fileDOList);
+        fileDetailDTO.setTagDOList(tagDOList);
+
+        if (fileDOList.size() == 0) {
+            return new ResultDTO<>(new NotFoundException("错误，数据库中未查到相关资源"));
+        } else {
+            return new ResultDTO<>(fileDetailDTO);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.entity.FileDO;
+import top.warmj.model.entity.FileDO;
 
 import java.util.List;
 

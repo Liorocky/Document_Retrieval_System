@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.entity.FileBoxDO;
+import top.warmj.model.entity.FileBoxDO;
 
 import java.util.HashMap;
 import java.util.List;

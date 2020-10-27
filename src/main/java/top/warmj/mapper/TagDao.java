@@ -17,4 +17,5 @@ public interface TagDao {
 
     int deleteTag(int id);
 
+    List<TagDO> listTagsByFileBoxId(int id);
 }

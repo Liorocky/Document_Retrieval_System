@@ -1,28 +1,48 @@
 var id = getUrlVariable("id");
 
 var table = layui.table;
+var form = layui.form;
 
 // 请求文档集内的所有文件
+/**
+ * @param data.data.fileDOList 文件列表
+ * @param data.data.tagDOList 标签列表
+ */
 $.ajax({
-    url: '/file/fileBox/' + id,    //请求的URL地址
+    url: '/fileBox/' + id,    //请求的URL地址
     type: 'GET', //请求方法，GET、POST、PUT、DELETE在这里设置
     timeout: 5000,    //超时时间
     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
     success: function (data, textStatus, jqXHR) {    //成功的回调函数
         console.log(data);
-
-        // 填充表格
+        // 填充文件表格
         table.render({
             elem: '#file-box-list'
-            ,initSort: {field: 'numberOrder', type: 'asc'}
-            ,cols: [[ //表头
+            , initSort: {field: 'numberOrder', type: 'asc'}
+            , cols: [[ //表头
                 {field: 'numberOrder', title: '序号', align: 'center', width: 60}
                 ,{field: 'fileName', title: '文件名', align: 'center', width: 700}
                 ,{field: 'type', title: '类型', align: 'center', width: 60}
                 ,{field: 'tools', title: '操作', align: 'center'}
             ]]
-            ,data: data.data
+            , data: data.data.fileDOList
         });
+
+        console.log("填充标签");
+        // 填充标签
+        var tagDOList = data.data.tagDOList;
+        if (tagDOList.length !== 0) {
+            for (var i = 0; i < tagDOList.length; i++) {
+                var tagId = tagDOList[i].id;
+                var tagName = tagDOList[i].name;
+                var $input = $("<input type='checkbox' checked lay-filter='tag-show-block' value=" + tagId + " title=" + tagName + ">");
+                $('#tag-block-show').append($input);
+            }
+        } else {
+            var $label = $("<label class='layui-form-label'>无标签</label>");
+            $('#tag-block-show').append($label);
+        }
+        form.render();
     },
     error: function (xhr, textStatus) { //失败的回调函数
         // $("#result").html(textStatus)
@@ -48,3 +68,9 @@ function downloadFileBox() {
 
     window.location.href= localhostPaht + downloadUrl + id;
 }
+
+// 设置标签点击无效
+form.on('checkbox(tag-show-block)', function(data){
+    $("input[type=checkbox]").prop('checked', 'checked');
+    form.render('checkbox');
+});

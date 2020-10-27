@@ -1,6 +1,6 @@
 package top.warmj.service;
 
-import top.warmj.entity.RelationDO;
+import top.warmj.model.entity.RelationDO;
 
 import java.util.List;
 

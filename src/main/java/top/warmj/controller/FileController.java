@@ -57,23 +57,6 @@ public class FileController {
     }
 
     /**
-     * 获取某个文档集中的所有文件
-     *
-     * @param id
-     * @return
-     */
-    @GetMapping("/fileBox/{id}")
-    public ResultDTO<List<FileDO>> listFilesByFileBoxId(@PathVariable int id) {
-        List<FileDO> list = fileService.listFilesByFileBoxId(id);
-        ResultDTO<List<FileDO>> resultDTO = new ResultDTO<>(list);
-        if (list.size() == 0) {
-            return new ResultDTO<>(new NotFoundException("错误，数据库中未查到相关资源"));
-        } else {
-            return resultDTO;
-        }
-    }
-
-    /**
      * 创建文件
      *
      * @param fileDO
@@ -90,7 +73,6 @@ public class FileController {
 
     /**
      * 删除文件
-     *
      * @param id
      * @return
      */
