@@ -4,8 +4,8 @@ import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import top.warmj.dto.ResultDTO;
-import top.warmj.entity.FileDO;
+import top.warmj.model.dto.ResultDTO;
+import top.warmj.model.entity.FileDO;
 import top.warmj.service.FileService;
 import top.warmj.util.ZipUtils;
 

@@ -3,10 +3,12 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.entity.FileDO;
-import top.warmj.entity.FileBoxDO;
-import top.warmj.entity.RelationDO;
-import top.warmj.dto.ResultDTO;
+import top.warmj.model.entity.FileDO;
+import top.warmj.model.entity.FileBoxDO;
+import top.warmj.model.entity.RelationDO;
+import top.warmj.model.dto.ResultDTO;
+import top.warmj.query.FileBoxSearchQuery;
+import top.warmj.query.FileBoxUploadQuery;
 import top.warmj.service.FileBoxService;
 import top.warmj.service.FileService;
 import top.warmj.service.RelationService;
@@ -47,72 +49,46 @@ public class FileBoxController {
      */
     @GetMapping({"/parameter"})
     public ResultDTO<List<FileBoxDO>> listAllFileBoxesByLimit(@RequestParam int page, @RequestParam int limit) {
-        List<FileBoxDO> list = fileBoxService.listAllFileBoxesByLimit((page - 1) * limit, limit);
-        int count = fileBoxService.listAllFileBoxes().size();
-        return new ResultDTO<>(list, count);
+        List<FileBoxDO> fileBoxList = fileBoxService.listAllFileBoxesByLimit((page - 1) * limit, limit);
+        int fileBoxCount = fileBoxService.listAllFileBoxes().size();
+        return new ResultDTO<>(fileBoxList, fileBoxCount);
     }
 
     /**
-     * 通过idList获取文档集
-     * @return
-     */
-    @GetMapping("/id")
-    public ResultDTO<List<FileBoxDO>> listFileBoxesByIdList(@RequestBody Map<String, Object> map) {
-        // 从map中获取id
-        ArrayList<Integer> arrayList = (ArrayList<Integer>) map.get("fileBoxId");
-
-        if (arrayList.size() == 0) {
-            return new ResultDTO<>(new NotFoundException("id不能为空"));
-        }
-
-        // 转换成list
-        List<Integer> fileBoxIdList = new LinkedList<>(arrayList);
-        return new ResultDTO<>(fileBoxService.listFileBoxesByIdList(fileBoxIdList));
-    }
-
-    /**
-     * 创建文档集
-     *
-     * @param map title 标题
-     *            desc 描述
-     *            count 文件数量
-     *            tags 标签
-     *            files 文件对象数组
-     *            fileName 文件名
-     *            numberOrder 文件序号
-     *            path 路径
-     *            type 类型
-     *
-     *            fileBoxId 文档集id 自增id
+     * @title 创建文档集
+     * @description 创建文档集
+     * @author WarMj
+     * @param fileBoxUploadQuery
+     * @updateTime 2020/10/27 10:38
+     * @return 
+     * @throws 
      */
     @PostMapping({"/", ""})
-    public ResultDTO<String> postFileBox(@RequestBody Map<String, Object> map) {
+    public ResultDTO<String> insertFileBox(@RequestBody FileBoxUploadQuery fileBoxUploadQuery) {
         // 创建fileBox
         FileBoxDO fileBoxDO = new FileBoxDO();
-        String title = (String) map.get("title");
 
-        fileBoxDO.setTitle(title);
-        fileBoxDO.setDesc((String) map.get("desc"));
-        fileBoxDO.setCount((Integer) map.get("count"));
+        fileBoxDO.setTitle(fileBoxUploadQuery.getTitle());
+        fileBoxDO.setDesc(fileBoxUploadQuery.getDesc());
+        fileBoxDO.setCount(fileBoxUploadQuery.getCount());
         int fileBoxId = fileBoxService.insertFileBox(fileBoxDO); // 获得自增id
 
         // 创建relation
-        ArrayList<String> tags = (ArrayList<String>) map.get("tags");
-        for (String s : tags) {
+        ArrayList<String> tagList = fileBoxUploadQuery.getTags();
+        for (String s : tagList) {
             relationService.insertRelation(new RelationDO(Integer.parseInt(s), fileBoxId));
         }
 
         // 创建file
-        ArrayList<HashMap<String, Object>> files = (ArrayList<HashMap<String, Object>>) map.get("files");
+        ArrayList<FileDO> fileList = fileBoxUploadQuery.getFiles();
         FileDO fileDO = new FileDO();
 
-        for (HashMap<String, Object> m : files) {
-
+        for (FileDO f : fileList) {
             fileDO.setFileBoxId(fileBoxId);
-            fileDO.setFileName((String) m.get("fileName"));
-            fileDO.setNumberOrder((Integer) m.get("numberOrder"));
-            fileDO.setPath((String) m.get("path"));
-            fileDO.setType((String) m.get("type"));
+            fileDO.setFileName(f.getFileName());
+            fileDO.setNumberOrder(f.getNumberOrder());
+            fileDO.setPath(f.getPath());
+            fileDO.setType(f.getType());
 
             fileService.insertFile(fileDO);
         }
@@ -137,24 +113,24 @@ public class FileBoxController {
 
     /**
      * 根据标题、标签获取文档集
-     * @param map
+     * @param
      * @return
      */
     @PostMapping("/title/tags")
-    public ResultDTO<List<FileBoxDO>> getFileBoxByTitleAndTags(@RequestBody Map<Object, Object> map) {
+    public ResultDTO<List<FileBoxDO>> getFileBoxByTitleAndTags(@RequestBody FileBoxSearchQuery query) {
         // 获取分页数据
-        int page = (int) map.get("page");
-        int limit = (int) map.get("limit");
+        int page = query.getPage();
+        int limit = query.getLimit();
 
-        if (!map.containsKey("title") && !map.containsKey("key")) {
+        if (query.getTitle() == null && query.getKey() == null) {
             return listAllFileBoxesByLimit(page, limit);
         }
 
         // 获取标题
-        String title = (String) map.get("title");
+        String title = query.getTitle();
 
         // 将前端传入的tags转为set集合 注意string 和 int
-        ArrayList<Object> tagsReqObject = (ArrayList<Object>) map.get("tags");
+        ArrayList<Object> tagsReqObject = query.getTagList();
 
         // 如果标题为空且tag为空，说明查询所有文档集
         if (title.equals("") && tagsReqObject.isEmpty()) {

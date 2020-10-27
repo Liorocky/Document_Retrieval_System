@@ -56,7 +56,7 @@ function searchFileBox() {
         , contentType: 'application/json'
         , where: {
             "title": title,
-            "tags": Array.from(tags_selected)
+            "tagList": Array.from(tags_selected)
         } //设定异步数据接口的额外参数
         , done: function (res, curr, count) {
             this.where = {};

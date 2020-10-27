@@ -3,8 +3,8 @@ package top.warmj.controller;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.warmj.dto.ResultDTO;
-import top.warmj.entity.RelationDO;
+import top.warmj.model.dto.ResultDTO;
+import top.warmj.model.entity.RelationDO;
 import top.warmj.service.RelationService;
 
 import java.util.LinkedList;

@@ -1,8 +1,8 @@
-package top.warmj.dao;
+package top.warmj.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import top.warmj.entity.TagDO;
+import top.warmj.model.entity.TagDO;
 
 import java.util.List;
 

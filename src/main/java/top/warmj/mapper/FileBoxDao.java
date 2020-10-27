@@ -1,8 +1,8 @@
-package top.warmj.dao;
+package top.warmj.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import top.warmj.entity.FileBoxDO;
+import top.warmj.model.entity.FileBoxDO;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package top.warmj.entity;
+package top.warmj.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

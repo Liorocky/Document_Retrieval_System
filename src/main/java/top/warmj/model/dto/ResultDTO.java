@@ -1,4 +1,4 @@
-package top.warmj.dto;
+package top.warmj.model.dto;
 
 import java.io.Serializable;
 import java.util.List;

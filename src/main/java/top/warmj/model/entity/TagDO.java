@@ -1,4 +1,4 @@
-package top.warmj.entity;
+package top.warmj.model.entity;
 
 
 public class TagDO {
