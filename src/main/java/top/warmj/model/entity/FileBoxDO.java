@@ -8,6 +8,7 @@ import java.util.Date;
 public class FileBoxDO {
 
   private int id;
+  private int active;
   private String title;
   private String desc;
   private int count;
@@ -25,6 +26,13 @@ public class FileBoxDO {
     this.id = id;
   }
 
+  public int getActive() {
+    return active;
+  }
+
+  public void setActive(int active) {
+    this.active = active;
+  }
 
   public String getTitle() {
     return title;
@@ -70,4 +78,16 @@ public class FileBoxDO {
     this.lastTime = lastTime;
   }
 
+  @Override
+  public String toString() {
+    return "FileBoxDO{" +
+            "id=" + id +
+            ", active=" + active +
+            ", title='" + title + '\'' +
+            ", desc='" + desc + '\'' +
+            ", count=" + count +
+            ", addTime=" + addTime +
+            ", lastTime=" + lastTime +
+            '}';
+  }
 }

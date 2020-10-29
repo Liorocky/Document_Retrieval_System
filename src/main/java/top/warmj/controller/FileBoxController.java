@@ -219,4 +219,23 @@ public class FileBoxController {
             return new ResultDTO<>(fileDetailDTO);
         }
     }
+
+    /**
+     * @title 更新fileBox的存活状态
+     * @description 
+     * @author WarMj
+     * @param 
+     * @updateTime 2020/10/29 15:14
+     * @return 
+     * @throws 
+     */
+    @PutMapping("/{id}")
+    public ResultDTO<String> updateFileBoxActive(@PathVariable int id) {
+        int result = fileBoxService.updateFileBoxActive(id);
+        if (result == 0) {
+            return new ResultDTO<>(new Exception("删除失败"));
+        } else {
+            return new ResultDTO<>("success");
+        }
+    }
 }

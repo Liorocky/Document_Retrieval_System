@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.warmj.model.dto.ResultDTO;
+import top.warmj.model.entity.FileBoxDO;
 import top.warmj.model.entity.FileDO;
+import top.warmj.query.FileBoxSearchQuery;
+import top.warmj.service.FileBoxService;
 import top.warmj.service.FileService;
 import top.warmj.util.ZipUtils;
 
@@ -20,6 +23,9 @@ import java.util.*;
 public class FileController {
     @Autowired
     FileService fileService;
+
+    @Autowired
+    FileBoxService fileBoxService;
 
     private static final String FILEPATH = "D:/upload/"; // 存储路径
 
@@ -131,7 +137,6 @@ public class FileController {
             }
             file.transferTo(files); // 采用file.transferTo 来保存上传的文件
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new ResultDTO<>(map);
@@ -215,6 +220,10 @@ public class FileController {
             filesList.add(file);
         }
 
+        List<Integer> idList = new LinkedList<>();
+        idList.add(filesResultList.get(0).getFileBoxId());
+        List<FileBoxDO> fileBoxDO = fileBoxService.listFileBoxesByIdList(idList);
+
         java.io.File zipFile = new java.io.File(FILEPATH + "template.zip");
         FileOutputStream fos1 = new FileOutputStream(zipFile);
 
@@ -224,7 +233,7 @@ public class FileController {
         response.reset();
         try {
             //采用UTF8的编码方式
-            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("fileBox_" + id + ".zip", "UTF-8"));
+            response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode( fileBoxDO.get(0).getTitle() + ".zip", "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             return new ResultDTO<>(e);
         }

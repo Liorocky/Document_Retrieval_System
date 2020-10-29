@@ -20,6 +20,13 @@ var tags_selected = new Set(); // 已选择的标签
 
 var form = layui.form; // 表单数据
 
+// form.verify({
+//     file_name : [
+//         /^[\S]{1,40}$/
+//         ,'文件名字小于40个字，且不能出现空格'
+//     ]
+// });
+
 // 选择和上传每个文件 （点击确认录入按钮）
 var $ = layui.jquery
     , upload = layui.upload;
@@ -46,7 +53,6 @@ var uploadListView = $('#upload-list')
                 , '<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
                 , '</td>'
                 , '</tr>'].join(''));
-
             //单个重传
             tr.find('.demo-reload').on('click', function () {
                 obj.upload(index, file);
@@ -95,11 +101,13 @@ var uploadListView = $('#upload-list')
         this.error(index, upload);
     }
     , allDone: function (obj) { //当文件全部被提交后，才触发
-        console.log("所有文件上传成功");
-        console.log("总文件数" + obj.total); //得到总文件数
-        console.log("请求成功的文件数" + obj.successful); //请求成功的文件数
-        console.log("请求失败的文件数" + (obj.aborted)); //请求失败的文件数
-        uploadFileBox(); // 所有文件上传之后，录入fileBox
+        if (obj.aborted === 0) {
+            // 所有文件上传成功
+            uploadFileBox(); // 所有文件上传之后，录入fileBox
+        } else {
+            layer.msg('录入失败', {icon: 2});
+        }
+        setTimeout(function() { location.reload(); }, 3000);
     }
     , error: function (index, upload) {
         var tr = uploadListView.find('tr#upload-' + index)
@@ -139,10 +147,12 @@ function uploadFileBox() {
             "files": filesUpload
         }),
         success: function (data, textStatus, jqXHR) {
+            console.log(data);
             layer.msg('录入成功', {icon: 1});
         },
         error: function (xhr, textStatus) {
             console.log(textStatus);
+            layer.msg('录入失败', {icon: 2});
         }
     })
 }

@@ -29,7 +29,6 @@ public class ZipUtils {
             File sourceFile = new File(srcDir);
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
-            System.out.println("压缩完成，耗时：" + (end - start) + " ms");
         } catch (Exception e) {
             throw new RuntimeException("zip error from ZipUtils", e);
         } finally {
@@ -42,7 +41,6 @@ public class ZipUtils {
             }
         }
     }
-
 
     /**
      * 压缩成ZIP 方法2
@@ -68,7 +66,6 @@ public class ZipUtils {
                 in.close();
             }
             long end = System.currentTimeMillis();
-            System.out.println("压缩完成，耗时：" + (end - start) + " ms");
         } catch (Exception e) {
             throw new RuntimeException("zip error from ZipUtils", e);
         } finally {

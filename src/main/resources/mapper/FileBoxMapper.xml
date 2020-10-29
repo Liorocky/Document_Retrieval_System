@@ -23,6 +23,8 @@
             *
         FROM
             file_box
+        WHERE
+	        active = 1
     </select>
 
     <select id="listAllFileBoxesByLimit" resultMap="FileBoxResultMap">
@@ -30,6 +32,8 @@
             *
         FROM
             file_box
+        WHERE
+	        active = 1
         LIMIT #{page}, #{limit}
     </select>
 
@@ -42,6 +46,7 @@
         <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
             #{id}
         </foreach>
+        AND active = 1
     </select>
 
     <select id="listFileBoxesByIdListLimit" resultMap="FileBoxResultMap">
@@ -54,6 +59,7 @@
             #{id}
         </foreach>
         LIMIT #{page}, #{limit}
+        AND active = 1
     </select>
 
     <insert id="insertFileBox" useGeneratedKeys="true" keyProperty="id">
@@ -76,7 +82,7 @@
         FROM
             relation
         WHERE
-            file_box_id IN ( SELECT id FROM file_box WHERE title LIKE concat('%', #{title}, '%') )
+            file_box_id IN ( SELECT id FROM file_box WHERE title LIKE concat('%', #{title}, '%') AND active = 1 )
         GROUP BY
             file_box_id
     </select>
@@ -88,6 +94,13 @@
             file_box
         WHERE
             title LIKE concat('%', #{title}, '%')
+            AND active = 1
     </select>
 
+    <update id="updateFileBoxActive" parameterType="int">
+        UPDATE file_box
+        SET active = 0
+        WHERE
+            id = #{id}
+    </update>
 </mapper>

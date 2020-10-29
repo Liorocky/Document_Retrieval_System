@@ -2,6 +2,7 @@ var id = getUrlVariable("id");
 
 var table = layui.table;
 var form = layui.form;
+var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
 // 请求文档集内的所有文件
 /**
@@ -74,3 +75,28 @@ form.on('checkbox(tag-show-block)', function(data){
     $("input[type=checkbox]").prop('checked', 'checked');
     form.render('checkbox');
 });
+
+// 删除文档集
+function confirmDelete() {
+    layer.msg('确定删除？', {
+        time: 0 //不自动关闭
+        , btn: ['确定', '取消']
+        , yes: function(index){
+            $.ajax({
+                url: '/fileBox/' + id,
+                type:'PUT',
+                success:function(data){ // http code 200
+                    if (data.code === 0) {
+                        layer.msg('删除成功', {icon: 1});
+                    } else {
+                        layer.msg('删除失败', {icon: 2});
+                    }
+                    setTimeout(function() {
+                        parent.location.reload();
+                        parent.layer.close(index);
+                    }, 1500);
+                }
+            });
+        }
+    });
+}

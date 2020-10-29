@@ -38,4 +38,5 @@ public interface FileBoxDao {
 
     List<FileBoxDO> listFileBoxesByTitle(String title);
 
+    int updateFileBoxActive(int id);
 }

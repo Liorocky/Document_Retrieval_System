@@ -90,4 +90,17 @@ public class FileDO {
     this.lastTime = lastTime;
   }
 
+  @Override
+  public String toString() {
+    return "FileDO{" +
+            "id=" + id +
+            ", fileBoxId=" + fileBoxId +
+            ", fileName='" + fileName + '\'' +
+            ", numberOrder=" + numberOrder +
+            ", path='" + path + '\'' +
+            ", type='" + type + '\'' +
+            ", addTime=" + addTime +
+            ", lastTime=" + lastTime +
+            '}';
+  }
 }

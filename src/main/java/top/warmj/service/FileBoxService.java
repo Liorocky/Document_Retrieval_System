@@ -62,4 +62,10 @@ public interface FileBoxService {
      */
     List<FileBoxDO> listFileBoxesByTitle(String title);
 
+    /**
+     * 更新fileBox的存活状态
+     * @param id
+     * @return
+     */
+    int updateFileBoxActive(int id);
 }

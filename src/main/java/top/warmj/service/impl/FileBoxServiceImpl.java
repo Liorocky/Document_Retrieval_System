@@ -54,4 +54,9 @@ public class FileBoxServiceImpl implements FileBoxService {
     public List<FileBoxDO> listFileBoxesByTitle(String title) {
         return fileBoxDao.listFileBoxesByTitle(title);
     }
+
+    @Override
+    public int updateFileBoxActive(int id) {
+        return fileBoxDao.updateFileBoxActive(id);
+    }
 }

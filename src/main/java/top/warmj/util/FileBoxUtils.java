@@ -1,6 +1,6 @@
 package top.warmj.util;
 
-import top.warmj.entity.FileBoxDO;
+import top.warmj.model.entity.FileBoxDO;
 
 import java.util.LinkedList;
 import java.util.List;
