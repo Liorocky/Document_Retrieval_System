@@ -5,6 +5,7 @@ spring:
 
   thymeleaf:
     cache: false
+    prefix: classpath:/static/pages/
 
   # spring.mvc.static-path-pattern 配置的是，访问静态资源的uri
   #spring.resources.static-locations 配置的是一个或者多个静态资源路径(文件夹)

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>文档检索系统 - 长安通</title>
-    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -12,7 +12,7 @@
         <div class="layui-logo">文档检索系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">文档管理</a></li>
+            <li class="layui-nav-item"><a href="/">文档管理</a></li>
 <!--            <li class="layui-nav-item"><a href="">用户管理</a></li>-->
         </ul>
         <ul class="layui-nav layui-layout-right">
@@ -25,7 +25,7 @@
 <!--                    <dd><a href="">安全设置</a></dd>-->
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
+            <li class="layui-nav-item"><a href="logout">退出</a></li>
         </ul>
     </div>
 
@@ -33,8 +33,8 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="pages-tree">
-                <li class="layui-nav-item"><a href="pages/retrieve-document.html" target="iframeMain">检索文档</a></li>
-                <li class="layui-nav-item"><a href="pages/upload-document.html" target="iframeMain">录入文档</a></li>
+                <li class="layui-nav-item"><a href="retrieve-document" target="iframeMain">检索文档</a></li>
+                <li class="layui-nav-item"><a href="upload-document" target="iframeMain">录入文档</a></li>
 <!--                <li class="layui-nav-item"><a href="">标签管理</a></li>-->
 <!--                <li class="layui-nav-item">-->
 <!--                    <a href="javascript:;">解决方案</a>-->
@@ -50,7 +50,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <iframe id="iframeMain" name="iframeMain" src="pages/retrieve-document.html" style="width: 100%; height: 100%">
+        <iframe id="iframeMain" name="iframeMain" src="retrieve-document" style="width: 100%; height: 100%">
         </iframe>
     </div>
 
@@ -60,8 +60,8 @@
     </div>
     <div id="tag-value"></div>
 </div>
-<script src="js/jquery-1.12.4.min.js"></script>
-<script src="layui/layui.all.js"></script>
-<script src="js/main.js"></script>
+<script src="../js/jquery-1.12.4.min.js"></script>
+<script src="../layui/layui.all.js"></script>
+<script src="../js/main.js"></script>
 </body>
 </html>
