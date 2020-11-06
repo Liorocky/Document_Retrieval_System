@@ -13,11 +13,11 @@ table.render({
     , page: 'true'
     , limit: 10
     , cols: [[
-        {field: 'order', title: '序号', sort: true, width: 80, unresize: 'false', align: 'center', type: 'numbers'}
-        , {field: 'title', title: '标题', width: 450, align: 'center'}
-        , {field: 'desc', title: '描述', width: 200, align: 'center'}
-        , {field: 'count', title: '文件数量', width: 90, align: 'center'}
-        , {field: 'addTime', title: '添加时间', sort: true, align: 'center'}
+        {field: 'order', title: '序号', sort: true, width: '10%', unresize: 'false', align: 'center', type: 'numbers'}
+        , {field: 'title', title: '标题', width: '40%', align: 'center'}
+        , {field: 'desc', title: '描述', width: '20%', align: 'center'}
+        , {field: 'count', title: '文件数量', width: '10%', align: 'center'}
+        , {field: 'addTime', title: '添加时间', width: '20%', sort: true, align: 'center'}
     ]]
     , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
         return {
