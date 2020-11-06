@@ -26,7 +26,8 @@ public class FileController {
     @Autowired
     FileBoxService fileBoxService;
 
-    private static final String FILEPATH = "D:/upload/"; // 存储路径
+    private static final String FILEPATH = "/usr/local/drs/upload/"; // 存储路径
+//    private static final String FILEPATH = "D:/upload/"; // 存储路径
 
     /**
      * 根据id获取文件

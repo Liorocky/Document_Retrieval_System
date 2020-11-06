@@ -35,7 +35,8 @@ public class FileBoxController {
     @Autowired
     TagService tagService;
 
-    private static final String FILEPATH = "D:/upload/"; // 存储路径
+    private static final String FILEPATH = "/usr/local/drs/upload/"; // 存储路径
+//    private static final String FILEPATH = "D:/upload/"; // 存储路径
 
     /**
      * 获取所有文档集
