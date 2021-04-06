@@ -415,3 +415,7 @@ target/classes/application.yml
 .idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_3.xml
 .idea/dataSources/69b91dc6-7010-4317-a791-6d5bd31b923b.xml
 .idea/artifacts/Document_Retrieval_System_war_exploded.xml
+target/classes/application.yml
+Document_Retrieval_System.iml
+.idea/libraries/Maven__com_alibaba_fastjson_1_2_75.xml
+.idea/artifacts/Document_Retrieval_System_war_exploded.xml

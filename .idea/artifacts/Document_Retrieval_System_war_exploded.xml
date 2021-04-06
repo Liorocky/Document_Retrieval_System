@@ -74,3 +74,13 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.2" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-devtools:2.3.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.3.3.RELEASE" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.75" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/document-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="Document_Retrieval_System/web/Web" />
+    </root>
+  </artifact>
+</component>
