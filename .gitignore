@@ -1,4 +1,3 @@
-
 target/surefire-reports/top.warmj.DocumentApplicationTests.txt
 target/surefire-reports/TEST-top.warmj.DocumentApplicationTests.xml
 target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
@@ -416,4 +415,3 @@ target/classes/application.yml
 .idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_3.xml
 .idea/dataSources/69b91dc6-7010-4317-a791-6d5bd31b923b.xml
 .idea/artifacts/Document_Retrieval_System_war_exploded.xml
-.idea/artifacts/Document_Retrieval_System_war.xml
