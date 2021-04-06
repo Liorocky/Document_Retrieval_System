@@ -14,4 +14,3 @@ target/
 *.swo
 *.swn
 *.DS_Store
-logs
