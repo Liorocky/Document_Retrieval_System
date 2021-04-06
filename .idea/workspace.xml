@@ -2,44 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ddd731b-bfac-43bb-9c69-94d1a7a31ec5" name="Default Changelist" comment="增加deleteFile接口">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_75.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_cache_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_config_core_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_config_ogdl_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_crypto_cipher_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_crypto_core_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_crypto_hash_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_event_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_lang_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_boot_starter_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_boot_web_starter_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/warmj/controller/ApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/document_retrieval_system_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/document_retrieval_system_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Document_Retrieval_System_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/69b91dc6-7010-4317-a791-6d5bd31b923b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/69b91dc6-7010-4317-a791-6d5bd31b923b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Document_Retrieval_System.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Document_Retrieval_System.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/warmj/controller/ApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/warmj/controller/ApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/FileMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/FileMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/controller/FileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/top/warmj/controller/FileController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/controller/TestBoot.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/dao/FileDao.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/pojo/File.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/pojo/FileBox.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/pojo/Relation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/pojo/Tag.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/service/FileService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/top/warmj/service/FileService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/top/warmj/service/impl/FileServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/top/warmj/service/impl/FileServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +121,7 @@
       <workItem from="1597888809174" duration="6047000" />
       <workItem from="1597895024627" duration="11849000" />
       <workItem from="1597969836784" duration="6549000" />
-      <workItem from="1617690065119" duration="2862000" />
+      <workItem from="1617690065119" duration="5805000" />
     </task>
     <task id="LOCAL-00001" summary="增加postFile接口">
       <created>1597907261065</created>
@@ -236,54 +201,58 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617691242482" />
-    <state width="1879" height="348" key="GridCell.Tab.0.bottom" timestamp="1617692321727">
+    <state width="641" height="466" key="DebuggerActiveHint" timestamp="1617694843990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321727" />
-    <state width="1879" height="348" key="GridCell.Tab.0.center" timestamp="1617692321727">
+    <state width="641" height="466" key="DebuggerActiveHint/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617694843990" />
+    <state width="1879" height="158" key="GridCell.Tab.0.bottom" timestamp="1617695402513">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321727" />
-    <state width="1879" height="348" key="GridCell.Tab.0.left" timestamp="1617692321727">
+    <state width="1879" height="158" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402513" />
+    <state width="1879" height="158" key="GridCell.Tab.0.center" timestamp="1617695402513">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321727" />
-    <state width="1879" height="348" key="GridCell.Tab.0.right" timestamp="1617692321727">
+    <state width="1879" height="158" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402513" />
+    <state width="1879" height="158" key="GridCell.Tab.0.left" timestamp="1617695402513">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321727" />
-    <state width="1879" height="348" key="GridCell.Tab.1.bottom" timestamp="1617692321608">
+    <state width="1879" height="158" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402513" />
+    <state width="1879" height="158" key="GridCell.Tab.0.right" timestamp="1617695402513">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
-    <state width="1879" height="348" key="GridCell.Tab.1.center" timestamp="1617692321608">
+    <state width="1879" height="158" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402513" />
+    <state width="1879" height="282" key="GridCell.Tab.1.bottom" timestamp="1617695402348">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
-    <state width="1879" height="348" key="GridCell.Tab.1.left" timestamp="1617692321607">
+    <state width="1879" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402348" />
+    <state width="1879" height="282" key="GridCell.Tab.1.center" timestamp="1617695402347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321607" />
-    <state width="1879" height="348" key="GridCell.Tab.1.right" timestamp="1617692321608">
+    <state width="1879" height="282" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402347" />
+    <state width="1879" height="282" key="GridCell.Tab.1.left" timestamp="1617695402347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
-    <state width="1879" height="348" key="GridCell.Tab.2.bottom" timestamp="1617692321608">
+    <state width="1879" height="282" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402347" />
+    <state width="1879" height="282" key="GridCell.Tab.1.right" timestamp="1617695402347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
-    <state width="1879" height="348" key="GridCell.Tab.2.center" timestamp="1617692321608">
+    <state width="1879" height="282" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402347" />
+    <state width="1879" height="158" key="GridCell.Tab.2.bottom" timestamp="1617695402289">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
-    <state width="1879" height="348" key="GridCell.Tab.2.left" timestamp="1617692321608">
+    <state width="1879" height="158" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402289" />
+    <state width="1879" height="158" key="GridCell.Tab.2.center" timestamp="1617695402289">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
-    <state width="1879" height="348" key="GridCell.Tab.2.right" timestamp="1617692321608">
+    <state width="1879" height="158" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402289" />
+    <state width="1879" height="158" key="GridCell.Tab.2.left" timestamp="1617695402289">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1879" height="348" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617692321608" />
+    <state width="1879" height="158" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402289" />
+    <state width="1879" height="158" key="GridCell.Tab.2.right" timestamp="1617695402289">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1879" height="158" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1617695402289" />
     <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1617691796524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -1,11 +1,13 @@
 package top.warmj.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -15,11 +17,13 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ApiController {
     @ResponseBody
-    @RequestMapping(value = "/corss", method = RequestMethod.POST, consumes="application/json")
-    public String sendGet(@RequestBody String dest_url, HttpServletRequest request) {
+    @RequestMapping(value = "/cors", method = RequestMethod.POST, consumes="application/json")
+    public JSONObject sendGet(@RequestBody String body, HttpServletRequest request) {
         //解析json
-        JSONObject paramterJson = JSONObject.parseObject(dest_url);
-        dest_url = paramterJson.getString("dest_url");
+        JSONObject paramterJson = JSONObject.parseObject(body);
+        String dest_url = paramterJson.getString("dest_url");
+        String dest_body = paramterJson.getString("dest_body");
+
         String result = "";
         BufferedReader in = null;
         try {
@@ -33,8 +37,18 @@ public class ApiController {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setDoOutput(true);
             // 建立实际的连接
             connection.connect();
+
+            if (!ObjectUtils.isEmpty(dest_body)) {
+                //write body
+                try (PrintWriter writer = new PrintWriter(connection.getOutputStream())) {
+                    writer.write(dest_body);
+                    writer.flush();
+                }
+            }
+
             // 获取所有响应头字段
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
@@ -62,6 +76,6 @@ public class ApiController {
                 e2.printStackTrace();
             }
         }
-        return result;
+        return JSONObject.parseObject(result);
     }
 }
