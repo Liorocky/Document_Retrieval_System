@@ -8,6 +8,7 @@ import java.util.Date;
 public class FileBoxDO {
 
   private int id;
+  private String uid;
   private int active;
   private String title;
   private String desc;
@@ -24,6 +25,14 @@ public class FileBoxDO {
 
   public void setId(int id) {
     this.id = id;
+  }
+
+  public String getUid() {
+    return uid;
+  }
+
+  public void setUid(String uid) {
+    this.uid = uid;
   }
 
   public int getActive() {

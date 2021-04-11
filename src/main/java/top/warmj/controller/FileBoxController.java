@@ -43,9 +43,9 @@ public class FileBoxController {
      *
      * @return
      */
-    @GetMapping({"/", ""})
-    public ResultDTO<List<FileBoxDO>> listAllFileBoxes() {
-        return new ResultDTO<>(fileBoxService.listAllFileBoxes());
+    @GetMapping({"/{uid}"})
+    public ResultDTO<List<FileBoxDO>> listAllFileBoxes(@PathVariable String uid) {
+        return new ResultDTO<>(fileBoxService.listAllFileBoxes(uid));
     }
 
     /**
@@ -54,11 +54,12 @@ public class FileBoxController {
      *
      * @return
      */
-    @GetMapping({"/parameter"})
+//    @GetMapping({"/parameter"})
     public ResultDTO<List<FileBoxDO>> listAllFileBoxesByLimit(@RequestParam int page, @RequestParam int limit) {
-        List<FileBoxDO> fileBoxList = fileBoxService.listAllFileBoxesByLimit((page - 1) * limit, limit);
-        int fileBoxCount = fileBoxService.listAllFileBoxes().size();
-        return new ResultDTO<>(fileBoxList, fileBoxCount);
+//        List<FileBoxDO> fileBoxList = fileBoxService.listAllFileBoxesByLimit((page - 1) * limit, limit);
+//        int fileBoxCount = fileBoxService.listAllFileBoxes(uid).size();
+//        return new ResultDTO<>(fileBoxList, fileBoxCount);
+        return null;
     }
 
     /**
@@ -205,7 +206,7 @@ public class FileBoxController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+//    @GetMapping("/{id}")
     public ResultDTO<FileDetailDTO> listFilesByFileBoxId(@PathVariable int id) {
         List<FileDO> fileDOList = fileService.listFilesByFileBoxId(id);
         List<TagDO> tagDOList = tagService.listTagsByFileBoxId(id);

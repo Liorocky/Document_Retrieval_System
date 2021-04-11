@@ -4,6 +4,7 @@
 <mapper namespace="top.warmj.mapper.FileBoxDao">
 
     <resultMap type="FileBoxDO" id="FileBoxResultMap">
+        <result column="uid" property="uid" javaType="String" jdbcType="VARCHAR"/>
         <result column="title" property="title" javaType="String" jdbcType="VARCHAR"/>
         <result column="add_time" property="addTime"/>
         <result column="last_time" property="lastTime"/>
@@ -12,19 +13,22 @@
     <resultMap type="FileDO" id="FileResultMap">
         <id column="file_box_id" property="fileBoxId" javaType="int" jdbcType="INTEGER"/>
         <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
+        <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
         <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
         <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>
         <result column="add_time" property="addTime"/>
         <result column="last_time" property="lastTime"/>
     </resultMap>
 
-    <select id="listAllFileBoxes" resultMap="FileBoxResultMap">
+    <select id="listAllFileBoxes" resultMap="FileBoxResultMap" parameterType="String">
         SELECT
             *
         FROM
             file_box
         WHERE
 	        active = 1
+	    AND
+	        uid = #{uid}
     </select>
 
     <select id="listAllFileBoxesByLimit" resultMap="FileBoxResultMap">

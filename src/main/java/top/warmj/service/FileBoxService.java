@@ -11,7 +11,7 @@ public interface FileBoxService {
      * 获取所有文档集
      * @return
      */
-    List<FileBoxDO> listAllFileBoxes();
+    List<FileBoxDO> listAllFileBoxes(String uid);
 
     /**
      * 获取文档集 分页

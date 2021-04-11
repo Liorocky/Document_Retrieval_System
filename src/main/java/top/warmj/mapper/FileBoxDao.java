@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FileBoxDao {
 
-    List<FileBoxDO> listAllFileBoxes();
+    List<FileBoxDO> listAllFileBoxes(String uid);
 
     /**
      * 获取文档集 分页

@@ -15,8 +15,8 @@ public class FileBoxServiceImpl implements FileBoxService {
     FileBoxDao fileBoxDao;
 
     @Override
-    public List<FileBoxDO> listAllFileBoxes() {
-        return fileBoxDao.listAllFileBoxes();
+    public List<FileBoxDO> listAllFileBoxes(String uid) {
+        return fileBoxDao.listAllFileBoxes(uid);
     }
 
     @Override
