@@ -13,9 +13,18 @@ import java.util.ArrayList;
 public class FileBoxUploadQuery {
     private String title;
     private String desc;
+    private String uid;
     private int count;
     private ArrayList<String> tags;
     private ArrayList<FileDO> files;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getTitle() {
         return title;

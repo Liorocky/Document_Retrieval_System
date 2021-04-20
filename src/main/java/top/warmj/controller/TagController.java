@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/tag")
 public class TagController {
     @Autowired

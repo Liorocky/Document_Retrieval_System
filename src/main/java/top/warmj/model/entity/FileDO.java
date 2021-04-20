@@ -8,8 +8,10 @@ public class FileDO {
 
   private int id;
   private int fileBoxId;
+  private String uid;
   private String fileName;
   private int numberOrder;
+  private int size;
   private String path;
   private String type;
 
@@ -20,6 +22,13 @@ public class FileDO {
   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
   private Date lastTime;
 
+  public int getSize() {
+    return size;
+  }
+
+  public void setSize(int size) {
+    this.size = size;
+  }
 
   public int getId() {
     return id;
@@ -29,6 +38,13 @@ public class FileDO {
     this.id = id;
   }
 
+  public String getUid() {
+    return uid;
+  }
+
+  public void setUid(String uid) {
+    this.uid = uid;
+  }
 
   public int getFileBoxId() {
     return fileBoxId;

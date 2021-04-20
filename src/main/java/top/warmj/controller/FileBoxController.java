@@ -20,6 +20,7 @@ import top.warmj.util.FileBoxUtils;
 import java.util.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/fileBox")
 @SuppressWarnings("unchecked") // 消除强转警告
 public class FileBoxController {
@@ -35,7 +36,7 @@ public class FileBoxController {
     @Autowired
     TagService tagService;
 
-    private static final String FILEPATH = "/usr/local/drs/upload/"; // 存储路径
+//    private static final String FILEPATH = "/usr/local/drs/upload/"; // 存储路径
 //    private static final String FILEPATH = "D:/upload/"; // 存储路径
 
     /**
@@ -75,16 +76,21 @@ public class FileBoxController {
     public ResultDTO<String> insertFileBox(@RequestBody FileBoxUploadQuery fileBoxUploadQuery) {
         // 创建fileBox
         FileBoxDO fileBoxDO = new FileBoxDO();
+        String uid = fileBoxUploadQuery.getUid();
+        String title = fileBoxUploadQuery.getTitle();
+        String desc = fileBoxUploadQuery.getDesc();
+        int count = fileBoxUploadQuery.getCount();
 
-        fileBoxDO.setTitle(fileBoxUploadQuery.getTitle());
-        fileBoxDO.setDesc(fileBoxUploadQuery.getDesc());
-        fileBoxDO.setCount(fileBoxUploadQuery.getCount());
+        fileBoxDO.setUid(uid);
+        fileBoxDO.setTitle(title);
+        fileBoxDO.setDesc(desc);
+        fileBoxDO.setCount(count);
         int fileBoxId = fileBoxService.insertFileBox(fileBoxDO); // 获得自增id
 
         // 创建relation
         ArrayList<String> tagList = fileBoxUploadQuery.getTags();
         for (String s : tagList) {
-            relationService.insertRelation(new RelationDO(Integer.parseInt(s), fileBoxId));
+            relationService.insertRelation(new RelationDO(Integer.parseInt(s), fileBoxId, uid));
         }
 
         // 创建file
@@ -97,6 +103,8 @@ public class FileBoxController {
             fileDO.setNumberOrder(f.getNumberOrder());
             fileDO.setPath(f.getPath());
             fileDO.setType(f.getType());
+            fileDO.setUid(f.getUid());
+            fileDO.setSize(f.getSize());
 
             fileService.insertFile(fileDO);
         }

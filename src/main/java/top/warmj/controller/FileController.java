@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/file")
 public class FileController {
     @Autowired

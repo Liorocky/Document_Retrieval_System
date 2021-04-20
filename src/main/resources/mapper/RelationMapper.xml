@@ -25,8 +25,8 @@
     </select>
 
     <insert id="insertRelation">
-        INSERT INTO relation (tag_id, file_box_id)
-        VALUES ( #{tagId}, #{fileBoxId} );
+        INSERT INTO relation (uid, tag_id, file_box_id)
+        VALUES ( #{uid}, #{tagId}, #{fileBoxId} );
     </insert>
 
     <delete id="deleteRelation" parameterType="int">

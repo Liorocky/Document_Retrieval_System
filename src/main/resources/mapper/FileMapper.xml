@@ -7,8 +7,10 @@
         <id column="file_box_id" property="fileBoxId" javaType="int" jdbcType="INTEGER"/>
         <result column="number_order" property="numberOrder" javaType="int" jdbcType="INTEGER"/>
         <result column="file_name" property="fileName" javaType="String" jdbcType="VARCHAR"/>
+        <result column="uid" property="uid" javaType="String" jdbcType="VARCHAR"/>
         <result column="path" property="path" javaType="String" jdbcType="VARCHAR"/>
         <result column="type" property="type" javaType="String" jdbcType="VARCHAR"/>
+        <result column="size" property="size" javaType="int" jdbcType="INTEGER"/>
         <result column="add_time" property="addTime"/>
         <result column="last_time" property="lastTime"/>
     </resultMap>
@@ -39,8 +41,8 @@
     </select>
 
     <insert id="insertFile">
-        INSERT INTO file (file_box_id, file_name, number_order, path, type, add_time, last_time)
-        VALUES ( #{fileBoxId}, #{fileName}, #{numberOrder}, #{path}, #{type}, NOW(), NOW());
+        INSERT INTO file (uid, file_box_id, file_name, number_order, path, size, type, add_time, last_time)
+        VALUES ( #{uid}, #{fileBoxId}, #{fileName}, #{numberOrder}, #{path}, #{size}, #{type}, NOW(), NOW());
     </insert>
 
     <delete id="deleteFile" parameterType="int">
